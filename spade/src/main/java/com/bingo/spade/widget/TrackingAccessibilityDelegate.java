@@ -4,7 +4,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.CompoundButton;
 
-import com.bingo.spade.Track;
+import com.bingo.spade.Spade;
 
 public class TrackingAccessibilityDelegate extends View.AccessibilityDelegate {
 
@@ -14,9 +14,9 @@ public class TrackingAccessibilityDelegate extends View.AccessibilityDelegate {
         switch (eventType) {
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
                 if (host instanceof CompoundButton) {
-                    Track.getTrack().getViewTracker().setChecked(host, ((CompoundButton) host).isChecked());
+                    Spade.getSpade().getViewTracker().setChecked(host, ((CompoundButton) host).isChecked());
                 } else {
-                    Track.getTrack().getViewTracker().performClick(host);
+                    Spade.getSpade().getViewTracker().performClick(host);
                 }
                 break;
         }

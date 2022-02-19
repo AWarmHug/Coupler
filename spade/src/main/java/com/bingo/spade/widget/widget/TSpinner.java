@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Spinner;
 
-import com.bingo.spade.Track;
+import com.bingo.spade.Spade;
 import com.bingo.spade.widget.helper.AccessibilityDelegateHelper;
 
 public class TSpinner extends Spinner {
@@ -24,7 +24,7 @@ public class TSpinner extends Spinner {
     @Override
     public boolean performClick() {
         boolean click = super.performClick();
-        Track.getTrack().getViewTracker().performClick(this);
+        Spade.getSpade().getViewTracker().performClick(this);
         return click;
     }
 

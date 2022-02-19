@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 public abstract class ViewTracker<T> {
 
 
-    public abstract T find(View view);
+    protected abstract T find(View view);
 
     public abstract void track(@Nullable T t);
 

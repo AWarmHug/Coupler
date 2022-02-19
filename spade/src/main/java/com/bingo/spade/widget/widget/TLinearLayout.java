@@ -10,8 +10,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import om.bingo.spade.widget.helper.AccessibilityDelegateHelper;
-import com.bingo.spade.Track;
+import com.bingo.spade.widget.helper.AccessibilityDelegateHelper;
+import com.bingo.spade.Spade;
 
 public class TLinearLayout extends LinearLayout {
     public TLinearLayout(Context context) {
@@ -35,7 +35,7 @@ public class TLinearLayout extends LinearLayout {
     @Override
     public boolean performClick() {
         boolean click = super.performClick();
-        Track.getTrack().getViewTracker().performClick(this);
+        Spade.getSpade().getViewTracker().performClick(this);
         return click;
     }
 

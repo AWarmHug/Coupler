@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.bingo.spade.widget.helper.AccessibilityDelegateHelper;
-import com.bingo.spade.Track;
+import com.bingo.spade.Spade;
 
 public class TScrollView extends ScrollView {
     public TScrollView(Context context) {
@@ -33,7 +33,7 @@ public class TScrollView extends ScrollView {
     @Override
     public boolean performClick() {
         boolean click = super.performClick();
-        Track.getTrack().getViewTracker().performClick(this);
+        Spade.getSpade().getViewTracker().performClick(this);
         return click;
     }
 

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.CheckedTextView;
 
-import com.bingo.spade.Track;
+import com.bingo.spade.Spade;
 
 public class TCheckedTextView extends CheckedTextView {
     public TCheckedTextView(Context context) {
@@ -24,7 +24,7 @@ public class TCheckedTextView extends CheckedTextView {
         boolean c = isChecked() != checked;
         super.setChecked(checked);
         if (c) {
-            Track.getTrack().getViewTracker().setChecked(this, checked);
+            Spade.getSpade().getViewTracker().setChecked(this, checked);
         }
     }
 

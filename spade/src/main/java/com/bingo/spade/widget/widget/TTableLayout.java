@@ -5,8 +5,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TableLayout;
 
-import om.bingo.spade.widget.helper.AccessibilityDelegateHelper;
-import com.bingo.spade.Track;
+import com.bingo.spade.widget.helper.AccessibilityDelegateHelper;
+import com.bingo.spade.Spade;
 
 public class TTableLayout extends TableLayout {
 
@@ -23,7 +23,7 @@ public class TTableLayout extends TableLayout {
     @Override
     public boolean performClick() {
         boolean click = super.performClick();
-        Track.getTrack().getViewTracker().performClick(this);
+        Spade.getSpade().getViewTracker().performClick(this);
         return click;
     }
 

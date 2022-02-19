@@ -9,8 +9,8 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import om.bingo.spade.widget.helper.AccessibilityDelegateHelper;
-import com.bingo.spade.Track;
+import com.bingo.spade.widget.helper.AccessibilityDelegateHelper;
+import com.bingo.spade.Spade;
 
 public class TRelativeLayout extends RelativeLayout {
     public TRelativeLayout(Context context) {
@@ -33,7 +33,7 @@ public class TRelativeLayout extends RelativeLayout {
     @Override
     public boolean performClick() {
         boolean click = super.performClick();
-        Track.getTrack().getViewTracker().performClick(this);
+        Spade.getSpade().getViewTracker().performClick(this);
         return click;
     }
 

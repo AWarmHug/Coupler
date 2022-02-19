@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RatingBar;
 
-import com.bingo.spade.Track;
+import com.bingo.spade.Spade;
 
 public class TRatingBar extends RatingBar {
     public TRatingBar(Context context) {
@@ -22,7 +22,7 @@ public class TRatingBar extends RatingBar {
     @Override
     public boolean performClick() {
         boolean click = super.performClick();
-        Track.getTrack().getViewTracker().performClick(this);
+        Spade.getSpade().getViewTracker().performClick(this);
         return click;
     }
 

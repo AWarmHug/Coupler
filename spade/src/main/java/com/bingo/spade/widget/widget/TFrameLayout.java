@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.bingo.spade.Track;
+import com.bingo.spade.Spade;
 import com.bingo.spade.widget.helper.AccessibilityDelegateHelper;
 
 public class TFrameLayout extends FrameLayout {
@@ -33,7 +33,7 @@ public class TFrameLayout extends FrameLayout {
     @Override
     public boolean performClick() {
         boolean click = super.performClick();
-        Track.getTrack().getViewTracker().performClick(this);
+        Spade.getSpade().getViewTracker().performClick(this);
         return click;
     }
 

@@ -8,6 +8,7 @@ import javassist.CtClass
 import javassist.JarClassPath
 import org.apache.commons.codec.digest.DigestUtils
 import org.gradle.api.Project
+import org.gradle.api.logging.Logger
 import org.objectweb.asm.ClassReader
 
 import java.util.jar.JarFile
@@ -15,15 +16,18 @@ import java.util.jar.JarFile
 class SpadeTransform extends Transform {
     private SpadePluginExtension extension;
     Project project
+    static Logger logger
+
 
     SpadeTransform(Project project, SpadePluginExtension extension) {
         this.project = project
         this.extension = extension
+        this.logger = project.logger
     }
 
     @Override
     String getName() {
-        return "TrackTransform"
+        return "SpadeTransform"
     }
 
     @Override
@@ -49,7 +53,7 @@ class SpadeTransform extends Transform {
         extension.excludes.add(Injector.without)
         println extension
 
-        println "Track-Plugin-----transform开始------"
+        logger.debug "Track-Plugin-----transform开始------"
         def inputs = transformInvocation.inputs
         def outputProvider = transformInvocation.outputProvider
 
@@ -135,14 +139,14 @@ class SpadeTransform extends Transform {
 
         println("Track-Plugin-----处理Dir开始-----")
         dirMap.each {
-            Injector.injectDir(pool, it.key, it.value,extension)
+            Injector.injectDir(pool, it.key, it.value, extension)
         }
         println("Track-Plugin-----处理Dir结束-----")
 
 
         println("Track-Plugin-----处理Jar开始-----")
         jarMap.each {
-            Injector.injectJar(pool, it.key, it.value,extension)
+            Injector.injectJar(pool, it.key, it.value, extension)
         }
         println("Track-Plugin-----处理Jar结束-----")
 

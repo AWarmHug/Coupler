@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.tabs.TabLayout;
 import com.bingo.spade.utils.Utils;
 
 /**
@@ -149,7 +148,7 @@ public abstract class ViewFinder<T> {
         sb.append("$");
         sb.append(view.getClass().getSimpleName());
         ViewGroup viewGroup = (ViewGroup) view.getParent();
-        if (Track.isChildNeedIndex(viewGroup) || view.getClass().getName().equals("com.google.android.material.tabs.TabLayout$TabView")) {
+        if (Spade.isChildNeedIndex(viewGroup) || view.getClass().getName().equals("com.google.android.material.tabs.TabLayout$TabView")) {
             sb.append(":");
             if (viewGroup instanceof RecyclerView) {
                 sb.append(((RecyclerView) viewGroup).getChildAdapterPosition(view));

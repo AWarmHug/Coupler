@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.RequiresApi;
 
-import com.bingo.spade.Track;
+import com.bingo.spade.Spade;
 import com.bingo.spade.widget.helper.AccessibilityDelegateHelper;
 
 public abstract class TViewGroup extends ViewGroup {
@@ -33,7 +33,7 @@ public abstract class TViewGroup extends ViewGroup {
     @Override
     public boolean performClick() {
         boolean click = super.performClick();
-        Track.getTrack().getViewTracker().performClick(this);
+        Spade.getSpade().getViewTracker().performClick(this);
         return click;
     }
 

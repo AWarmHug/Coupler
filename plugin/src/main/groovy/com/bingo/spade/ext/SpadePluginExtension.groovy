@@ -3,12 +3,12 @@ package com.bingo.spade.ext
 import org.gradle.api.provider.Property
 
 
-abstract class SpadePluginExtension {
+ class SpadePluginExtension {
 
-    abstract Property<String> getMessage()
 
     boolean enabled
-    List<String> excludes = new ArrayList<>()
+
+    List<String> excludePackages = new ArrayList<>()
 
     SpadePluginExtension() {
 
@@ -16,7 +16,7 @@ abstract class SpadePluginExtension {
 
     boolean filter(String path) {
         boolean f = true;
-        excludes.each {
+        excludePackages.each {
             if (Utils.getFileName(path).contains(Utils.getFileName(it))) {
                 f = false
             }
@@ -28,7 +28,7 @@ abstract class SpadePluginExtension {
     public String toString() {
         return "TrackConfig{" +
                 "enabled=" + enabled +
-                ", excludes=" + excludes +
+                ", excludes=" + excludePackages +
                 '}';
     }
 }

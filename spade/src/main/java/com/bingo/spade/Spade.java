@@ -3,19 +3,21 @@ package com.bingo.spade;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Track<T> {
-    private static Track mTrack;
+public class Spade<T> {
+    private static final Spade mInstance = new Spade();
 
     private ViewTracker<T> mViewTracker;
 
+    private Spade() {
+    }
+
     public static <T> void init(ViewTracker<T> viewTracker) {
-        mTrack = new Track();
-        mTrack.mViewTracker = viewTracker;
+        mInstance.mViewTracker = viewTracker;
 
     }
 
-    public static Track getTrack() {
-        return mTrack;
+    public static Spade getSpade() {
+        return mInstance;
     }
 
 

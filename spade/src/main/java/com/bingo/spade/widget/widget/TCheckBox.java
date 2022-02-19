@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.CheckBox;
 
-import com.bingo.spade.Track;
+import com.bingo.spade.Spade;
 
 public class TCheckBox extends CheckBox {
     public TCheckBox(Context context) {
@@ -24,7 +24,7 @@ public class TCheckBox extends CheckBox {
         boolean c = isChecked() != checked;
         super.setChecked(checked);
         if (c) {
-            Track.getTrack().getViewTracker().setChecked(this, checked);
+            Spade.getSpade().getViewTracker().setChecked(this, checked);
         }
     }
 

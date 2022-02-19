@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.SeekBar;
 
-import com.bingo.spade.Track;
+import com.bingo.spade.Spade;
 
 public class TSeekBar extends SeekBar {
     public TSeekBar(Context context) {
@@ -22,7 +22,7 @@ public class TSeekBar extends SeekBar {
     @Override
     public boolean performClick() {
         boolean click = super.performClick();
-        Track.getTrack().getViewTracker().performClick(this);
+        Spade.getSpade().getViewTracker().performClick(this);
         return click;
     }
 

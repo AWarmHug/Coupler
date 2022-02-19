@@ -7,7 +7,7 @@ import android.widget.CompoundButton;
 
 import androidx.annotation.RequiresApi;
 
-import com.bingo.spade.Track;
+import com.bingo.spade.Spade;
 
 /**
  * 作者：warm
@@ -39,7 +39,7 @@ public abstract class TCompoundButton extends CompoundButton {
         boolean c = isChecked() != checked;
         super.setChecked(checked);
         if (c) {
-            Track.getTrack().getViewTracker().setChecked(this, checked);
+            Spade.getSpade().getViewTracker().setChecked(this, checked);
         }
     }
 

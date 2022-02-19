@@ -7,7 +7,7 @@ import android.widget.AbsoluteLayout;
 
 import androidx.annotation.Nullable;
 
-import com.bingo.spade.Track;
+import com.bingo.spade.Spade;
 import com.bingo.spade.widget.helper.AccessibilityDelegateHelper;
 
 @Deprecated
@@ -27,7 +27,7 @@ public class TAbsoluteLayout extends AbsoluteLayout {
     @Override
     public boolean performClick() {
         boolean click = super.performClick();
-        Track.getTrack().getViewTracker().performClick(this);
+        Spade.getSpade().getViewTracker().performClick(this);
         return click;
     }
 

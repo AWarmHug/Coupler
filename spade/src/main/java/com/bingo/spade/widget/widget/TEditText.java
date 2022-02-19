@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.EditText;
 
-import com.bingo.spade.Track;
+import com.bingo.spade.Spade;
 
 public class TEditText extends EditText {
     public TEditText(Context context) {
@@ -23,7 +23,7 @@ public class TEditText extends EditText {
     @Override
     public boolean performClick() {
         boolean click = super.performClick();
-        Track.getTrack().getViewTracker().performClick(this);
+        Spade.getSpade().getViewTracker().performClick(this);
         return click;
     }
 

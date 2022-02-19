@@ -13,7 +13,7 @@ import java.util.zip.ZipOutputStream
 
 class Injector {
 
-    public static final String PACKAGE_WIDGET = "com/bingo/spade/widget";
+    public static final String PACKAGE_WIDGET = "com/bingo/spade/widget/widget";
 
     public static final String without = "com${File.separator}bingo${File.separator}spade"
 
