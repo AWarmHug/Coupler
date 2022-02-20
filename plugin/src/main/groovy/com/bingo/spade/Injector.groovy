@@ -33,8 +33,8 @@ class Injector {
                 if (file.isFile()) {
                     File out = new File(dest + filePath.substring(src.length()))
                     Files.createParentDirs(out)
-                    if (filePath.endsWith(".class") && !filePath.contains('R$') && !filePath.contains('R.class') && !filePath.contains('BuildConfig.class') && config.filter(filePath)) {
-                        println "--------正在转换----------"
+                    if (filePath.endsWith(".class") &&!filePath.contains('-')&& !filePath.contains('R$') && !filePath.contains('R.class') && !filePath.contains('BuildConfig.class') && config.filter(filePath)) {
+                        println "--------正在转换 Dir 中的Class ----------"
                         println("classPath = ${filePath}")
 
                         ClassReader reader = new ClassReader(new FileInputStream(filePath))
@@ -99,9 +99,9 @@ class Injector {
 
             zos.putNextEntry(new ZipEntry(entryName))
 
-            if (!jarEntry.isDirectory() && entryName.endsWith(".class") && !entryName.contains('R$') && !entryName.contains('R.class') && !entryName.contains('BuildConfig.class') && config.filter(entryName)) {
+            if (!jarEntry.isDirectory() && !entryName.contains('-')&& entryName.endsWith(".class") && !entryName.contains('R$') && !entryName.contains('R.class') && !entryName.contains('BuildConfig.class') && config.filter(entryName)) {
 
-                println "--------正在转换----------"
+                println "--------正在转换 Jar 中的Clase----------"
                 println("classPath = ${entryName}")
 
                 ClassReader reader = new ClassReader(inJarFile.getInputStream(jarEntry))

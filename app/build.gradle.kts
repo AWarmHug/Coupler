@@ -1,15 +1,18 @@
+//https://www.wenjiangs.com/docs/gradle-user-guide
+import com.bingo.spade.ext.SpadePluginExtension
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("spade-plugin")
+//    id("spade-plugin")
 }
-//apply {
-//    plugin(com.bingo.spade.SpadePlugin::class)
-//}
 
-spade {
+apply {
+    plugin(com.bingo.spade.SpadePlugin::class.java)
+}
 
-    excludePackages = arrayListOf("androidx.activity")
+extensions.configure<SpadePluginExtension>("spade") {
+    excludes = arrayListOf("androidx/activity")
 }
 
 

@@ -37,8 +37,8 @@ class SpadeTransform extends Transform {
 
     @Override
     Set<? super QualifiedContent.Scope> getScopes() {
-        return Sets.immutableEnumSet(QualifiedContent.Scope.PROJECT, QualifiedContent.Scope.PROJECT_LOCAL_DEPS,
-                QualifiedContent.Scope.SUB_PROJECTS, QualifiedContent.Scope.SUB_PROJECTS_LOCAL_DEPS,
+        return Sets.immutableEnumSet(QualifiedContent.Scope.PROJECT, QualifiedContent.Scope.EXTERNAL_LIBRARIES,
+                QualifiedContent.Scope.SUB_PROJECTS, QualifiedContent.Scope.EXTERNAL_LIBRARIES,
                 QualifiedContent.Scope.EXTERNAL_LIBRARIES)
     }
 
@@ -53,7 +53,7 @@ class SpadeTransform extends Transform {
         extension.excludes.add(Injector.without)
         println extension
 
-        logger.debug "Track-Plugin-----transform开始------"
+        logger.debug "SpadeTransform-----transform开始------"
         def inputs = transformInvocation.inputs
         def outputProvider = transformInvocation.outputProvider
 
