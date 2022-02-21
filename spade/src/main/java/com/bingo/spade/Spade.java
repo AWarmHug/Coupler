@@ -3,27 +3,19 @@ package com.bingo.spade;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Spade<T> {
+public class Spade {
     private static final Spade mInstance = new Spade();
 
-    private ViewTracker<T> mViewTracker;
 
     private Spade() {
     }
 
-    public static <T> void init(ViewTracker<T> viewTracker) {
-        mInstance.mViewTracker = viewTracker;
-
-    }
 
     public static Spade getSpade() {
         return mInstance;
     }
 
 
-    public ViewTracker<T> getViewTracker() {
-        return mViewTracker;
-    }
 
     public static void setChildNeedIndex(ViewGroup group) {
         group.setTag(R.id.key_child_need_index, true);

@@ -7,6 +7,8 @@ class SpadePluginExtension {
 
     boolean enabled
 
+    List<String> packages
+
     List<String> excludes = new ArrayList<>()
 
     SpadePluginExtension() {
@@ -23,12 +25,5 @@ class SpadePluginExtension {
         return f
     }
 
-    @Override
-    public String toString() {
-        return "SpadePluginExtension{" +
-                "enabled=" + enabled +
-                ", excludes=" + excludes +
-                '}';
-    }
 }
 

@@ -13,7 +13,8 @@ import java.util.zip.ZipOutputStream
 
 class Injector {
 
-    public static final String PACKAGE_WIDGET = "com/bingo/spade/widget/widget";
+
+    public static List<String> PACKAGE_WIDGET
 
     public static final String without = "com${File.separator}bingo${File.separator}spade"
 
@@ -33,7 +34,7 @@ class Injector {
                 if (file.isFile()) {
                     File out = new File(dest + filePath.substring(src.length()))
                     Files.createParentDirs(out)
-                    if (filePath.endsWith(".class") &&!filePath.contains('-')&& !filePath.contains('R$') && !filePath.contains('R.class') && !filePath.contains('BuildConfig.class') && config.filter(filePath)) {
+                    if (filePath.endsWith(".class") && !filePath.contains('-') && !filePath.contains('R$') && !filePath.contains('R.class') && !filePath.contains('BuildConfig.class') && config.filter(filePath)) {
                         println "--------正在转换 Dir 中的Class ----------"
                         println("classPath = ${filePath}")
 
@@ -99,7 +100,7 @@ class Injector {
 
             zos.putNextEntry(new ZipEntry(entryName))
 
-            if (!jarEntry.isDirectory() && !entryName.contains('-')&& entryName.endsWith(".class") && !entryName.contains('R$') && !entryName.contains('R.class') && !entryName.contains('BuildConfig.class') && config.filter(entryName)) {
+            if (!jarEntry.isDirectory() && !entryName.contains('-') && entryName.endsWith(".class") && !entryName.contains('R$') && !entryName.contains('R.class') && !entryName.contains('BuildConfig.class') && config.filter(entryName)) {
 
                 println "--------正在转换 Jar 中的Clase----------"
                 println("classPath = ${entryName}")

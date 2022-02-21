@@ -12,6 +12,7 @@ apply {
 }
 
 extensions.configure<SpadePluginExtension>("spade") {
+    packages = arrayListOf("com.bingo.spadedemo.spade.widget", "com.bingo.spadedemo.spade.activity")
     excludes = arrayListOf("androidx/activity")
 }
 

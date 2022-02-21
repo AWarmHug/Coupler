@@ -8,6 +8,7 @@ import javassist.CtClass
 import javassist.JarClassPath
 import org.apache.commons.codec.digest.DigestUtils
 import org.gradle.api.Project
+import org.gradle.api.internal.file.collections.DirectoryFileTree
 import org.gradle.api.logging.Logger
 import org.objectweb.asm.ClassReader
 
@@ -50,6 +51,7 @@ class SpadeTransform extends Transform {
     @Override
     void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException {
         super.transform(transformInvocation)
+        Injector.PACKAGE_WIDGET = extension.packages
         extension.excludes.add(Injector.without)
         println extension
 
@@ -102,11 +104,32 @@ class SpadeTransform extends Transform {
         println Injector.without
 
         dirMap.each {
-            if (it.key.contains(Injector.PACKAGE_WIDGET)) {
-                File file = new File(it.key)
-                ClassReader reader = new ClassReader(new FileInputStream(file))
-                CtClass ctClass = pool.get(Utils.getClassName(reader.className));
-                Injector.clazz.put(ctClass.superclass.name, ctClass.name)
+
+            File dir = new File(it.key)
+
+            if (dir.isDirectory()) {
+                dir.eachFileRecurse { File file ->
+                    if (file.isFile()){
+                        String path=file.absoluteFile
+
+                        println "Track-Plugin--dirMap---${path}"
+
+                        boolean contains=false
+                        for (pack in Injector.PACKAGE_WIDGET) {
+                            String re=Utils.getClassName(path)
+
+                            if (re.contains(pack)){
+                                contains=true
+                                break
+                            }
+                        }
+                        if (contains) {
+                            ClassReader reader = new ClassReader(new FileInputStream( new File(path)))
+                            CtClass ctClass = pool.get(Utils.getClassName(reader.className));
+                            Injector.clazz.put(ctClass.superclass.name, ctClass.name)
+                        }
+                    }
+                }
             }
         }
 
@@ -123,18 +146,27 @@ class SpadeTransform extends Transform {
                     continue
                 }
                 def entryName = jarEntry.name
-                if (!jarEntry.isDirectory() && entryName.contains(Injector.PACKAGE_WIDGET)) {
+                String re=Utils.getClassName(entryName)
+
+                boolean contains=false
+                for (pack in Injector.PACKAGE_WIDGET) {
+                    if (re.contains(pack)){
+                        contains=true
+                        break
+                    }
+                }
+
+                if (!jarEntry.isDirectory() && contains) {
                     ClassReader reader = new ClassReader(inJarFile.getInputStream(jarEntry))
                     CtClass ctClass = pool.get(Utils.getClassName(reader.className));
                     Injector.clazz.put(ctClass.superclass.name, ctClass.name)
-
                 }
             }
         }
 
-        println Injector.clazz.toMapString()
+        println "Track-Plugin-----${Injector.clazz.toMapString()}"
 
-        println Injector.clazz.size()
+        println "Track-Plugin-----${Injector.clazz.size()}"
 
 
         println("Track-Plugin-----处理Dir开始-----")
