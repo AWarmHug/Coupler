@@ -16,9 +16,9 @@ class SpadePluginExtension {
     }
 
     boolean filter(String path) {
-        boolean f = true;
+        boolean f = true
         excludes.each {
-            if (Utils.getFileName(path).contains(Utils.getFileName(it))) {
+            if (Utils.getClassName(path).contains(Utils.getClassName(it))) {
                 f = false
             }
         }

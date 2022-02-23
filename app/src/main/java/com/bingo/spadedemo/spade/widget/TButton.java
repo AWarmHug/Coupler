@@ -4,9 +4,16 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Button;
 
-import com.bingo.spade.Spade;
+import androidx.annotation.Keep;
+import androidx.lifecycle.Observer;
+
+import com.bingo.spadedemo.R;
+import com.bingo.spadedemo.theme.Theme;
+import com.bingo.spadedemo.theme.ThemeListener;
+import com.bingo.spadedemo.theme.Themes;
 import com.bingo.spadedemo.track.ViewTracker;
 
+@Keep
 public class TButton extends Button {
     public TButton(Context context) {
         super(context);
@@ -20,6 +27,15 @@ public class TButton extends Button {
         super(context, attrs, defStyleAttr);
     }
 
+    public TButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+    }
 
     @Override
     public boolean performClick() {

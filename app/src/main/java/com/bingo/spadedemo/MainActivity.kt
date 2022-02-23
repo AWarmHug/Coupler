@@ -1,13 +1,9 @@
 package com.bingo.spadedemo
 
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.bingo.spade.Spade
-import com.bingo.spade.Tracker
-import com.bingo.spadedemo.track.ViewTracker
-import com.bingo.spadedemo.track.ViewTrace
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +14,9 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.bt).setOnClickListener {
 
+            Log.d("TAG", "onCreate: ")
         }
     }
+
+
 }

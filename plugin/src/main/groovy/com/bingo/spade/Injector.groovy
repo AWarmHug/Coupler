@@ -14,16 +14,16 @@ import java.util.zip.ZipOutputStream
 class Injector {
 
 
-    public static List<String> PACKAGE_WIDGET
+    public static List<String> changePackages
 
-    public static final String without = "com${File.separator}bingo${File.separator}spade"
+    public static final String without = "com.bingo.spade"
 
     public static Map<String, String> clazz = new HashMap<>()
 
-    static injectDir(ClassPool pool, String src, String dest, SpadePluginExtension config) {
-        println "------------------"
-        println("src = ${src}")
-        println "dest = ${dest}"
+    static injectDir(ClassPool pool, String src, String dest, SpadePluginExtension shape) {
+        Log.log "------Dir------------------------------------------------------------------------------------------"
+        Log.log("src = ${src}")
+        Log.log "dest = ${dest}"
 
         File dir = new File(src);
 
@@ -34,9 +34,7 @@ class Injector {
                 if (file.isFile()) {
                     File out = new File(dest + filePath.substring(src.length()))
                     Files.createParentDirs(out)
-                    if (filePath.endsWith(".class") && !filePath.contains('-') && !filePath.contains('R$') && !filePath.contains('R.class') && !filePath.contains('BuildConfig.class') && config.filter(filePath)) {
-                        println "--------正在转换 Dir 中的Class ----------"
-                        println("classPath = ${filePath}")
+                    if (filePath.endsWith(".class") && !filePath.contains('-') && !filePath.contains('R$') && !filePath.contains('R.class') && !filePath.contains('BuildConfig.class') && shape.filter(filePath)) {
 
                         ClassReader reader = new ClassReader(new FileInputStream(filePath))
                         String superClassName = Utils.getClassName(reader.superName)
@@ -45,10 +43,15 @@ class Injector {
 
                         if (value != null) {
                             def itemViewCtClass = pool.get(Utils.getClassName(reader.className))
+                            Log.log("classPath = ${filePath}")
+                            Log.log "------ change ${reader.className}----------"
+                            Log.log "------ oldSuperClass= ${itemViewCtClass.superclass.getName()}----------"
+                            Log.log "------ newSuperClass= ${pool.get(value).getName()}----------"
+
                             if (itemViewCtClass.isFrozen()) {
                                 itemViewCtClass.defrost()
                             }
-                            itemViewCtClass.superclass = pool.get(value);
+                            itemViewCtClass.superclass = pool.get(value)
                             itemViewCtClass.writeFile(dest)
 //                            IOUtils.write(itemViewCtClass.toBytecode(),new FileOutputStream(dest + filePath.substring(src.length())))
                             itemViewCtClass.detach()
@@ -76,13 +79,13 @@ class Injector {
 
     }
 
-    static injectJar(ClassPool pool, String src, String dest, SpadePluginExtension config) {
+    static injectJar(ClassPool pool, File src, File dest, SpadePluginExtension config) {
 
-        println "------------------"
-        println "src = ${src}"
-        println "dest = ${dest}"
+        Log.log "---Jar----------------------------------------------------------------------------------"
+        Log.log "src = ${src}"
+        Log.log "dest = ${dest.getAbsolutePath().substring(dest.getAbsolutePath().lastIndexOf("intermediates"))}"
 
-        Files.createParentDirs(new File(dest))
+        Files.createParentDirs(dest)
 //        ZipInputStream zis = new ZipInputStream(new FileInputStream(src))
 
         ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(dest));
@@ -102,8 +105,6 @@ class Injector {
 
             if (!jarEntry.isDirectory() && !entryName.contains('-') && entryName.endsWith(".class") && !entryName.contains('R$') && !entryName.contains('R.class') && !entryName.contains('BuildConfig.class') && config.filter(entryName)) {
 
-                println "--------正在转换 Jar 中的Clase----------"
-                println("classPath = ${entryName}")
 
                 ClassReader reader = new ClassReader(inJarFile.getInputStream(jarEntry))
                 String superClassName = Utils.getClassName(reader.superName)
@@ -112,6 +113,11 @@ class Injector {
 
                 if (value != null) {
                     def itemViewCtClass = pool.get(Utils.getClassName(reader.className))
+                    Log.log("classPath = ${entryName}")
+                    Log.log "------ change ${reader.className}----------"
+                    Log.log "------ oldSuperClass= ${itemViewCtClass.superclass.getName()} ----------"
+                    Log.log "------ newSuperClass= ${pool.get(value).getName()}----------"
+
                     if (itemViewCtClass != null) {
                         if (itemViewCtClass.isFrozen()) {
                             itemViewCtClass.defrost()
@@ -128,7 +134,6 @@ class Injector {
                 IOUtils.copy(inJarFile.getInputStream(jarEntry), zos)
             }
         }
-//        zis.close()
         zos.close()
     }
 

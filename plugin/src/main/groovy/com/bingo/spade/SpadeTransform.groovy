@@ -8,7 +8,6 @@ import javassist.CtClass
 import javassist.JarClassPath
 import org.apache.commons.codec.digest.DigestUtils
 import org.gradle.api.Project
-import org.gradle.api.internal.file.collections.DirectoryFileTree
 import org.gradle.api.logging.Logger
 import org.objectweb.asm.ClassReader
 
@@ -51,11 +50,13 @@ class SpadeTransform extends Transform {
     @Override
     void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException {
         super.transform(transformInvocation)
-        Injector.PACKAGE_WIDGET = extension.packages
+        Injector.changePackages = extension.packages
         extension.excludes.add(Injector.without)
-        println extension
+        extension.excludes.addAll(Injector.changePackages)
 
-        logger.debug "SpadeTransform-----transform开始------"
+        Log.log(" changePackage = ${Injector.changePackages}")
+        Log.log(" excludes = ${extension.excludes}")
+
         def inputs = transformInvocation.inputs
         def outputProvider = transformInvocation.outputProvider
 
@@ -65,7 +66,7 @@ class SpadeTransform extends Transform {
         pool.appendClassPath(project.android.bootClasspath[0].toString())
 
         Map<String, String> dirMap = new HashMap<>();
-        Map<String, String> jarMap = new HashMap<>();
+        Map<File, File> jarMap = new HashMap<>();
 
         inputs.each { TransformInput input ->
             input.directoryInputs.each {
@@ -76,12 +77,11 @@ class SpadeTransform extends Transform {
                         it.getContentTypes(), it.getScopes(),
                         Format.DIRECTORY)
 
-
                 dirMap.put(it.file.absolutePath, dest.absolutePath)
 
             }
 
-            input.jarInputs.each {
+            input.jarInputs.each {JarInput it ->
                 def classPath = new JarClassPath(it.file.absolutePath)
                 pool.appendClassPath(classPath)
 
@@ -94,37 +94,28 @@ class SpadeTransform extends Transform {
                 //生成输出路径
                 File dest = outputProvider.getContentLocation(jarName + md5Name,
                         it.getContentTypes(), it.getScopes(), Format.JAR);
-                jarMap.put(it.file.absolutePath, dest.absolutePath)
-
+                jarMap.put(it.file, dest)
             }
-
         }
-
-        println Injector.PACKAGE_WIDGET
-        println Injector.without
 
         dirMap.each {
 
             File dir = new File(it.key)
-
             if (dir.isDirectory()) {
                 dir.eachFileRecurse { File file ->
-                    if (file.isFile()){
-                        String path=file.absoluteFile
+                    if (file.isFile()) {
+                        String path = file.absoluteFile
+                        boolean contains = false
+                        for (pack in Injector.changePackages) {
+                            String re = Utils.getClassName(path)
 
-                        println "Track-Plugin--dirMap---${path}"
-
-                        boolean contains=false
-                        for (pack in Injector.PACKAGE_WIDGET) {
-                            String re=Utils.getClassName(path)
-
-                            if (re.contains(pack)){
-                                contains=true
+                            if (re.contains(pack)) {
+                                contains = true
                                 break
                             }
                         }
                         if (contains) {
-                            ClassReader reader = new ClassReader(new FileInputStream( new File(path)))
+                            ClassReader reader = new ClassReader(new FileInputStream(new File(path)))
                             CtClass ctClass = pool.get(Utils.getClassName(reader.className));
                             Injector.clazz.put(ctClass.superclass.name, ctClass.name)
                         }
@@ -146,12 +137,11 @@ class SpadeTransform extends Transform {
                     continue
                 }
                 def entryName = jarEntry.name
-                String re=Utils.getClassName(entryName)
-
-                boolean contains=false
-                for (pack in Injector.PACKAGE_WIDGET) {
-                    if (re.contains(pack)){
-                        contains=true
+                String re = Utils.getClassName(entryName)
+                boolean contains = false
+                for (pack in Injector.changePackages) {
+                    if (re.contains(pack)) {
+                        contains = true
                         break
                     }
                 }
@@ -164,26 +154,16 @@ class SpadeTransform extends Transform {
             }
         }
 
-        println "Track-Plugin-----${Injector.clazz.toMapString()}"
-
-        println "Track-Plugin-----${Injector.clazz.size()}"
-
-
-        println("Track-Plugin-----处理Dir开始-----")
         dirMap.each {
             Injector.injectDir(pool, it.key, it.value, extension)
         }
-        println("Track-Plugin-----处理Dir结束-----")
 
 
-        println("Track-Plugin-----处理Jar开始-----")
         jarMap.each {
             Injector.injectJar(pool, it.key, it.value, extension)
         }
-        println("Track-Plugin-----处理Jar结束-----")
 
-
-        println "Track-Plugin-----transform结束------"
+        println "Track-Plugin-----transform over------"
 
     }
 
