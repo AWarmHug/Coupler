@@ -1,7 +1,6 @@
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
-    `groovy-gradle-plugin`
     `maven-publish`
 }
 
@@ -12,7 +11,7 @@ dependencies {
     implementation("com.android.tools.build:gradle:7.1.1")
     implementation("com.android.tools.build:gradle-api:7.1.1")
     implementation("com.android.tools.build:gradle-core:3.1.4")
-    implementation("org.javassist:javassist:3.25.0-GA")
+    implementation("org.javassist:javassist:3.28.0-GA")
     implementation("com.google.android:android:4.1.1.4")
 }
 
@@ -28,7 +27,6 @@ gradlePlugin {
     plugins {
         //create or register
         create("spade") {
-
             id = "spade-plugin"
             implementationClass = "com.bingo.spade.SpadePlugin"
 
