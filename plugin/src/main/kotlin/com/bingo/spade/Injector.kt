@@ -14,8 +14,7 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
 
-class Injector(val changePackages: List<String>) {
-    val without = "com.bingo.spade"
+class Injector() {
     val clazz = mutableMapOf<String, String>()
     fun injectDir(pool: ClassPool, src: String, dest: String, shape: SpadePluginExtension) {
         log("------Dir------------------------------------------------------------------------------------------")

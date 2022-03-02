@@ -1,18 +1,24 @@
 package com.bingo.spade.ext
 
 import com.bingo.spade.getClassName
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.Property
 
-class SpadePluginExtension() {
-    var enabled: Boolean = true
+abstract class SpadePluginExtension {
 
-    var packages = mutableListOf<String>()
+    abstract val packages: ListProperty<String>
 
-    var excludes = mutableListOf<String>()
+    abstract val excludes: ListProperty<String>
+
+    init {
+        packages.convention(mutableListOf())
+        excludes.convention(mutableListOf())
+    }
 
 
     fun filter(path: String): Boolean {
         var f = true
-        excludes.forEach {
+        excludes.get().forEach {
             if (getClassName(path).contains(getClassName(it))) {
                 f = false
             }

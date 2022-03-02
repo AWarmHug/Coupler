@@ -1,11 +1,12 @@
 //https://www.wenjiangs.com/docs/gradle-user-guide
-//import com.bingo.spade.ext.SpadePluginExtension
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.bingo.spade.ext.SpadePluginExtension
+
+//import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-//    id("spade-plugin")
+    id("spade-plugin")
 }
 
 //apply {
@@ -13,10 +14,11 @@ plugins {
 //}
 //
 //
-//configure<SpadePluginExtension> {
-//    packages = arrayListOf("com.bingo.spadedemo.spade.widget", "com.bingo.spadedemo.spade.activity")
-//    excludes = arrayListOf("androidx.activity")
-//}
+spade {
+    packages.addAll("com.bingo.spadedemo.spade.widget", "com.bingo.spadedemo.spade.activity")
+    excludes.addAll("androidx.activity")
+}
+
 
 
 android {

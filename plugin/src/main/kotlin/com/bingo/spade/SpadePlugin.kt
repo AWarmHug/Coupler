@@ -12,7 +12,6 @@ class SpadePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         target.logger.isEnabled(LogLevel.DEBUG)
 
-
         val ext = target.extensions.create<SpadePluginExtension>("spade")
 
         target.extensions.configure<BaseAppModuleExtension>("android") {

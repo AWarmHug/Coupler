@@ -8,9 +8,6 @@ import androidx.annotation.Keep;
 import androidx.lifecycle.Observer;
 
 import com.bingo.spadedemo.R;
-import com.bingo.spadedemo.theme.Theme;
-import com.bingo.spadedemo.theme.ThemeListener;
-import com.bingo.spadedemo.theme.Themes;
 import com.bingo.spadedemo.track.ViewTracker;
 
 @Keep

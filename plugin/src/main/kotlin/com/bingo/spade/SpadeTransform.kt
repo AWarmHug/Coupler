@@ -15,7 +15,9 @@ import java.util.jar.JarFile
 
 
 class SpadeTransform(val project: Project, val extension: SpadePluginExtension) : Transform() {
-    val injector = Injector(extension.packages)
+
+    val without = "com.bingo.spade"
+
     override fun getName(): String = "SpadeTransform"
 
     override fun getInputTypes(): Set<QualifiedContent.ContentType> {
@@ -37,11 +39,15 @@ class SpadeTransform(val project: Project, val extension: SpadePluginExtension) 
 
     override fun transform(transformInvocation: TransformInvocation) {
         super.transform(transformInvocation)
+        val injector = Injector()
 
-        extension.excludes.add(injector.without)
-        extension.excludes.addAll(injector.changePackages)
+        val changePackages = extension.packages.get()
 
-        log(" changePackage = ${injector.changePackages}")
+        extension.excludes.add(without)
+        extension.excludes.addAll(changePackages)
+
+
+        log(" changePackage = ${changePackages}")
         log(" excludes = ${extension.excludes}")
 
         val inputs = transformInvocation.inputs
@@ -93,7 +99,7 @@ class SpadeTransform(val project: Project, val extension: SpadePluginExtension) 
                     if (file.isFile()) {
                         val path = file.absolutePath
                         var contains = false
-                        for (pack in injector.changePackages) {
+                        for (pack in changePackages) {
                             val re = getClassName(path)
 
                             if (re.contains(pack)) {
@@ -123,7 +129,7 @@ class SpadeTransform(val project: Project, val extension: SpadePluginExtension) 
                 val entryName = jarEntry.name
                 val re = getClassName(entryName)
                 var contains = false
-                for (pack in injector.changePackages) {
+                for (pack in changePackages) {
                     if (re.contains(pack)) {
                         contains = true
                         break
