@@ -6,19 +6,22 @@ import com.bingo.spade.ext.SpadePluginExtension
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("spade-plugin")
+//    id("spade-plugin")
 }
 
-//apply {
-//    plugin(com.bingo.spade.SpadePlugin::class.java)
-//}
-//
-//
-spade {
+apply {
+    plugin(com.bingo.spade.SpadePlugin::class.java)
+}
+
+extensions.configure<SpadePluginExtension>("spade") {
     packages.addAll("com.bingo.spadedemo.spade.widget", "com.bingo.spadedemo.spade.activity")
     excludes.addAll("androidx.activity")
 }
 
+//spade {
+//    packages.addAll("com.bingo.spadedemo.spade.widget", "com.bingo.spadedemo.spade.activity")
+//    excludes.addAll("androidx.activity")
+//}
 
 
 android {
@@ -60,4 +63,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     implementation(project(":spade"))
+    implementation("com.github.bumptech.glide:glide:4.13.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.13.0")
 }

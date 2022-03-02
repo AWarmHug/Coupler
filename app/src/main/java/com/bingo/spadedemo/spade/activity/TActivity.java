@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class TActivity extends Activity {
+import com.bingo.spadedemo.theme.ThemesKt;
+
+public class TActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

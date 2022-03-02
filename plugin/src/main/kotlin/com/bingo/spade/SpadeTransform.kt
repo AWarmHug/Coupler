@@ -109,8 +109,10 @@ class SpadeTransform(val project: Project, val extension: SpadePluginExtension) 
                         }
                         if (contains) {
                             val reader = ClassReader(FileInputStream(file))
-                            val ctClass = pool.get(getClassName(reader.className));
-                            injector.clazz.put(ctClass.superclass.name, ctClass.name)
+                            val ctClass = pool.get(getClassName(reader.className))
+                            if (ctClass.superclass.name != "java.lang.Object") {
+                                injector.clazz[ctClass.superclass.name] = ctClass.name
+                            }
                         }
                     }
                 }
@@ -144,6 +146,10 @@ class SpadeTransform(val project: Project, val extension: SpadePluginExtension) 
             }
         }
 
+        injector.clazz.forEach {
+            log("change from ${it.key} to ${it.value}")
+        }
+
         dirMap.forEach {
             injector.injectDir(pool, it.key, it.value, extension)
         }
@@ -153,7 +159,9 @@ class SpadeTransform(val project: Project, val extension: SpadePluginExtension) 
             injector.injectJar(pool, it.key, it.value, extension)
         }
 
-        log("Track-Plugin-----transform over------")
+
+
+        log("-----transform over------")
 
 
     }

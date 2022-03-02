@@ -30,7 +30,7 @@ public class DefaultFinder {
     }
 
 
-    protected String getName(View view) {
+    public static String getName(View view) {
 
         StringBuilder sb = new StringBuilder();
 
@@ -46,7 +46,7 @@ public class DefaultFinder {
     }
 
 
-    private String getActivityName(View view) {
+    public static String getActivityName(View view) {
 
         Activity activity = getActivity(view);
         if (activity != null) {
@@ -65,7 +65,7 @@ public class DefaultFinder {
     }
 
     @Nullable
-    protected Activity getActivity(View view) {
+    public static Activity getActivity(View view) {
         Context context = view.getContext();
         while (context instanceof ContextWrapper) {
             if (context instanceof Activity) {
@@ -77,7 +77,7 @@ public class DefaultFinder {
     }
 
 
-    protected String getViewName(View view) {
+    public static String getViewName(View view) {
         StringBuilder sb = new StringBuilder();
         appendName(sb, view);
         if (view.getParent() instanceof ViewGroup) {
@@ -95,7 +95,7 @@ public class DefaultFinder {
     }
 
 
-    protected void appendName(StringBuilder sb, View view) {
+    public static void appendName(StringBuilder sb, View view) {
         if (view.getTag(com.bingo.spade.R.id.key_extra_name) != null) {
             sb.append("$")
                     .append(view.getTag(com.bingo.spade.R.id.key_extra_name));
@@ -139,14 +139,14 @@ public class DefaultFinder {
         }
     }
 
-    private void appendIDView(StringBuilder sb, View view, String idName) {
+    public static void appendIDView(StringBuilder sb, View view, String idName) {
         sb.append("$");
         sb.append(view.getClass().getSimpleName())
                 .append(":")
                 .append(idName);
     }
 
-    private void appendNoIDView(StringBuilder sb, View view) {
+    public static void appendNoIDView(StringBuilder sb, View view) {
         sb.append("$");
         sb.append(view.getClass().getSimpleName());
         ViewGroup viewGroup = (ViewGroup) view.getParent();
@@ -170,7 +170,7 @@ public class DefaultFinder {
      * @param viewGroup
      * @return
      */
-    private int getSameIndex(View view, ViewGroup viewGroup) {
+    public static int getSameIndex(View view, ViewGroup viewGroup) {
         int index = 0;
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View cView = viewGroup.getChildAt(i);
