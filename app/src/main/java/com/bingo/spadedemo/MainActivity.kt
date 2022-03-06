@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.bt).setOnClickListener {
             Log.d("TAG", "onCreate: ")
+
             if (skin.value==null||skin.value == Skin.DARK) {
                 skin.value = Skin.LIGHT
             } else {

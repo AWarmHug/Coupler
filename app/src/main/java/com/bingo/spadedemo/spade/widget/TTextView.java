@@ -4,20 +4,37 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.bingo.spade.Spade;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+
+import com.bingo.spadedemo.theme.Skin;
+import com.bingo.spadedemo.theme.ThemeChanger;
+import com.bingo.spadedemo.theme.ThemesKt;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-public class TTextView extends TextView {
+import org.jetbrains.annotations.Nullable;
+
+public class TTextView extends TextView implements ThemeChanger {
     public TTextView(Context context) {
-        super(context);
+        this(context,null);
     }
 
     public TTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs,android.R.attr.textViewStyle);
     }
 
     public TTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        if (context instanceof AppCompatActivity) {
+            AppCompatActivity activity = (AppCompatActivity) context;
+            ThemesKt.getSkin().observe(activity, new Observer<Skin>() {
+                @Override
+                public void onChanged(Skin skin) {
+                    skin.binding(TTextView.this);
+                }
+            });
+        }
     }
 
     @Override
@@ -25,5 +42,14 @@ public class TTextView extends TextView {
         boolean click = super.performClick();
         ViewTracker.getInstance().performClick(this);
         return click;
+    }
+
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme!=null){
+            if (theme.getTextColor()!=null){
+                setTextColor(theme.getTextColor());
+            }
+        }
     }
 }

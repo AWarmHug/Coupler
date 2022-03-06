@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
 import com.bingo.spadedemo.spade.helper.AccessibilityDelegateHelper;
-import com.bingo.spadedemo.theme.ViewTheme;
+import com.bingo.spadedemo.theme.Skin;
 import com.bingo.spadedemo.theme.ThemesKt;
 import com.bingo.spadedemo.track.ViewTracker;
 
@@ -34,7 +34,15 @@ public class TLinearLayout extends LinearLayout {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public TLinearLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-
+        AppCompatActivity activity = (AppCompatActivity) context;
+        ThemesKt.getSkin().observe(activity, new Observer<Skin>() {
+            @Override
+            public void onChanged(Skin skin) {
+                if (skin != null) {
+                    skin.binding(TLinearLayout.this);
+                }
+            }
+        });
     }
 
     @Override

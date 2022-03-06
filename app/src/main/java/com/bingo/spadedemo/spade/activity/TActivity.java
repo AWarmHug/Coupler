@@ -11,6 +11,7 @@ import com.bingo.spadedemo.theme.ThemesKt;
 
 public class TActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

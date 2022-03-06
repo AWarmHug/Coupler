@@ -1,19 +1,19 @@
 package com.bingo.spadedemo.theme
 
 import android.view.View
-import android.widget.TextView
+import android.widget.Button
 
 
-open class ViewTheme(val textColor: Int? = null, val background: Background? = null) : Changer {
+open class ViewTheme(val textColor: Int? = null, val background: Background? = null) : ThemeBinder {
 
-    override fun change(view: View) {
+    override fun binding(view: View) {
 
         textColor?.let {
-            if (view is TextView) {
+            if (view is Button) {
                 view.setTextColor(it)
             }
         }
-        background?.change(view)
+        background?.binding(view)
     }
 
 

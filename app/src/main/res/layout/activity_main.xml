@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/c"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <Button
@@ -13,4 +13,10 @@
         android:layout_height="wrap_content"
         android:text="Hello World!" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="政府工作报告提到，去年国内生产总值达到114万亿元，增长8.1%。按照年平均汇率折算，总量达17.7万亿美元，稳居世界第二，占全球经济的比重预计将超过18%。人均GDP则达到1.25万美元，预计超过全球平均水平。" />
+
+</LinearLayout>
