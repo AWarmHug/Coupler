@@ -1,5 +1,6 @@
 package com.bingo.spadedemo
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -21,12 +22,26 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.bt).setOnClickListener {
             Log.d("TAG", "onCreate: ")
+            //通过这种方式可以
+            theme.applyStyle(R.style.Theme_Spade_Blue, true)
 
-            if (skin.value==null||skin.value == Skin.DARK) {
-                skin.value = Skin.LIGHT
-            } else {
-                skin.value = Skin.DARK
-            }
+            val typedArray =
+                theme.obtainStyledAttributes(com.google.android.material.R.styleable.AppCompatTheme)
+
+            val colorPrimary = typedArray.getColor(
+                com.google.android.material.R.styleable.AppCompatTheme_colorPrimary,
+                Color.WHITE
+            )
+
+            Log.d("TAG", "onCreate: ${colorPrimary==getColor(R.color.blue_500)}")
+
+
+            typedArray.recycle()
+//            if (skin.value==null||skin.value == Skin.DARK) {
+//                skin.value = Skin.LIGHT
+//            } else {
+//                skin.value = Skin.DARK
+//            }
         }
     }
 
