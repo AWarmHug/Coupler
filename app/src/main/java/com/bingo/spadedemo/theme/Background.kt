@@ -13,9 +13,9 @@ class Background(
     @ColorInt val color: Int? = null,
     val url: String? = null,
     @DrawableRes val drawable: Int? = null
-) {
+) : Changer {
 
-    fun action(view: View) {
+    override fun change(view: View) {
         if (color != null) {
             view.setBackgroundColor(color)
         }

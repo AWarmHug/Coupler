@@ -84,7 +84,7 @@ public class DefaultFinder {
             ViewGroup parent = (ViewGroup) view.getParent();
             while (parent != null && parent.getId() != android.R.id.content) {
                 appendName(sb, parent);
-                if (parent instanceof ViewGroup) {
+                if (parent.getParent() instanceof ViewGroup) {
                     parent = (ViewGroup) parent.getParent();
                 } else {
                     break;
@@ -149,15 +149,19 @@ public class DefaultFinder {
     public static void appendNoIDView(StringBuilder sb, View view) {
         sb.append("$");
         sb.append(view.getClass().getSimpleName());
-        ViewGroup viewGroup = (ViewGroup) view.getParent();
-        if (Spade.isChildNeedIndex(viewGroup) || view.getClass().getName().equals("com.google.android.material.tabs.TabLayout$TabView")) {
-            sb.append(":");
-            if (viewGroup instanceof RecyclerView) {
-                sb.append(((RecyclerView) viewGroup).getChildAdapterPosition(view));
-            } else if (viewGroup instanceof AdapterView) {
-                sb.append(((AdapterView) viewGroup).getPositionForView(view));
-            } else {
-                sb.append(getSameIndex(view, viewGroup));
+        if (view.getParent() instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view.getParent();
+            if (viewGroup != null) {
+                if (Spade.isChildNeedIndex(viewGroup) || view.getClass().getName().equals("com.google.android.material.tabs.TabLayout$TabView")) {
+                    sb.append(":");
+                    if (viewGroup instanceof RecyclerView) {
+                        sb.append(((RecyclerView) viewGroup).getChildAdapterPosition(view));
+                    } else if (viewGroup instanceof AdapterView) {
+                        sb.append(((AdapterView) viewGroup).getPositionForView(view));
+                    } else {
+                        sb.append(getSameIndex(view, viewGroup));
+                    }
+                }
             }
         }
     }
