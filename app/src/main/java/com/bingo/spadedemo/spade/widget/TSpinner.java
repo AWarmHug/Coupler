@@ -5,21 +5,27 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Spinner;
 
-import com.bingo.spade.Spade;
+import androidx.annotation.Nullable;
+
+import androidx.appcompat.R;
+
 import com.bingo.spadedemo.spade.helper.AccessibilityDelegateHelper;
+import com.bingo.spadedemo.theme.ThemeChanger;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-public class TSpinner extends Spinner {
+public class TSpinner extends Spinner implements ThemeChanger {
     public TSpinner(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public TSpinner(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs,R.attr.spinnerStyle);
     }
 
     public TSpinner(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        ViewExpantionKt.observe(this, context);
     }
 
     @Override
@@ -34,4 +40,12 @@ public class TSpinner extends Spinner {
         super.onViewAdded(child);
         AccessibilityDelegateHelper.onViewAdded(child);
     }
+
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme != null) {
+            theme.binding(this);
+        }
+    }
+
 }

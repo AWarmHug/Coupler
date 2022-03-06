@@ -3,26 +3,26 @@ package com.bingo.spadedemo.spade.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.CheckedTextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.Nullable;
 
-import com.bingo.spade.Spade;
 import com.bingo.spadedemo.theme.ThemeChanger;
 import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-public class TCheckedTextView extends CheckedTextView implements ThemeChanger {
-    public TCheckedTextView(Context context) {
-        this(context,null);
+public class TToggleButton extends ToggleButton implements ThemeChanger {
+    public TToggleButton(Context context) {
+        this(context, null);
     }
 
-    public TCheckedTextView(Context context, AttributeSet attrs) {
-        this(context, attrs,android.R.attr.checkedTextViewStyle);
+    public TToggleButton(Context context, AttributeSet attrs) {
+        this(context, attrs, android.R.attr.buttonStyleToggle);
     }
 
-    public TCheckedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TToggleButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        ViewExpantionKt.observe(this,context);
+        ViewExpantionKt.observe(this, context);
     }
 
     @Override

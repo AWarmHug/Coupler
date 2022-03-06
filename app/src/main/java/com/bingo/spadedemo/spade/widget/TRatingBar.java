@@ -4,20 +4,26 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RatingBar;
 
-import com.bingo.spade.Spade;
+import androidx.annotation.Nullable;
+import androidx.appcompat.R;
+
+import com.bingo.spadedemo.theme.ThemeChanger;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-public class TRatingBar extends RatingBar {
+public class TRatingBar extends RatingBar implements ThemeChanger {
+
     public TRatingBar(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public TRatingBar(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, R.attr.ratingBarStyle);
     }
 
     public TRatingBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        ViewExpantionKt.observe(this, context);
     }
 
     @Override
@@ -27,4 +33,10 @@ public class TRatingBar extends RatingBar {
         return click;
     }
 
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme != null) {
+            theme.binding(this);
+        }
+    }
 }

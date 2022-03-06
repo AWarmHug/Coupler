@@ -4,16 +4,15 @@ import android.view.View
 import android.widget.Button
 
 
-open class ViewTheme(val textColor: Int? = null, val background: Background? = null) : ThemeBinder {
+open class ViewTheme(val textColor: TextColor? = null, val background: Background? = null) :
+    ThemeBinder {
 
     override fun binding(view: View) {
 
-        textColor?.let {
-            if (view is Button) {
-                view.setTextColor(it)
-            }
-        }
+        textColor?.binding(view)
+
         background?.binding(view)
+
     }
 
 

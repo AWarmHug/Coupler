@@ -4,20 +4,24 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.bingo.spade.Spade;
+import androidx.annotation.Nullable;
+
+import com.bingo.spadedemo.theme.ThemeChanger;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-public class TImageView extends ImageView {
+public class TImageView extends ImageView implements ThemeChanger {
     public TImageView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public TImageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public TImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        ViewExpantionKt.observe(this, context);
     }
 
     @Override
@@ -27,4 +31,10 @@ public class TImageView extends ImageView {
         return click;
     }
 
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme != null) {
+            theme.binding(this);
+        }
+    }
 }

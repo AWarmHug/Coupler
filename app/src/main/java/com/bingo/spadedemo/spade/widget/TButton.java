@@ -5,15 +5,18 @@ import android.util.AttributeSet;
 import android.widget.Button;
 
 import androidx.annotation.Keep;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
 import com.bingo.spadedemo.theme.Skin;
+import com.bingo.spadedemo.theme.ThemeChanger;
 import com.bingo.spadedemo.theme.ThemesKt;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
 @Keep
-public class TButton extends Button {
+public class TButton extends Button implements ThemeChanger {
     public TButton(Context context) {
         this(context, null);
     }
@@ -28,15 +31,7 @@ public class TButton extends Button {
 
     public TButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        if (context instanceof AppCompatActivity) {
-            AppCompatActivity activity = (AppCompatActivity) context;
-            ThemesKt.getSkin().observe(activity, new Observer<Skin>() {
-                @Override
-                public void onChanged(Skin skin) {
-                    skin.binding(TButton.this);
-                }
-            });
-        }
+        ViewExpantionKt.observe(this, context);
     }
 
     @Override
@@ -53,4 +48,15 @@ public class TButton extends Button {
     }
 
 
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme != null) {
+            if (theme.getTextColor() != null) {
+                theme.getTextColor().binding(this);
+            }
+            if (theme.getBackground() != null) {
+                theme.getBackground().binding(this);
+            }
+        }
+    }
 }

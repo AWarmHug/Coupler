@@ -6,23 +6,27 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.bingo.spade.Spade;
 import com.bingo.spadedemo.spade.helper.AccessibilityDelegateHelper;
+import com.bingo.spadedemo.theme.ThemeChanger;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-public abstract class TViewGroup extends ViewGroup {
+public abstract class TViewGroup extends ViewGroup implements ThemeChanger {
     public TViewGroup(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public TViewGroup(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public TViewGroup(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        ViewExpantionKt.observe(this, context);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -44,4 +48,10 @@ public abstract class TViewGroup extends ViewGroup {
         AccessibilityDelegateHelper.onViewAdded(child);
     }
 
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme != null) {
+            theme.binding(this);
+        }
+    }
 }

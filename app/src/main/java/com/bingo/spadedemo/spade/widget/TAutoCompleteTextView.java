@@ -4,21 +4,30 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.AutoCompleteTextView;
 
-import com.bingo.spade.Spade;
+import androidx.annotation.Nullable;
+import androidx.appcompat.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+
+import com.bingo.spadedemo.theme.Skin;
+import com.bingo.spadedemo.theme.ThemeChanger;
+import com.bingo.spadedemo.theme.ThemesKt;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
 
-public class TAutoCompleteTextView extends AutoCompleteTextView {
+public class TAutoCompleteTextView extends AutoCompleteTextView implements ThemeChanger {
     public TAutoCompleteTextView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public TAutoCompleteTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, R.attr.autoCompleteTextViewStyle);
     }
 
     public TAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        ViewExpantionKt.observe(this, context);
     }
 
     @Override
@@ -26,6 +35,18 @@ public class TAutoCompleteTextView extends AutoCompleteTextView {
         boolean click = super.performClick();
         ViewTracker.getInstance().performClick(this);
         return click;
+    }
+
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme != null) {
+            if (theme.getTextColor() != null) {
+                theme.getTextColor().binding(this);
+            }
+            if (theme.getBackground() != null) {
+                theme.getBackground().binding(this);
+            }
+        }
     }
 
 }

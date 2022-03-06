@@ -11,19 +11,23 @@ import androidx.annotation.RequiresApi;
 
 import com.bingo.spadedemo.spade.helper.AccessibilityDelegateHelper;
 import com.bingo.spade.Spade;
+import com.bingo.spadedemo.theme.ThemeChanger;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-public class TScrollView extends ScrollView {
+public class TScrollView extends ScrollView implements ThemeChanger {
+
     public TScrollView(Context context) {
-        super(context);
+        this(context,null);
     }
 
     public TScrollView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs,0);
     }
 
     public TScrollView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        ViewExpantionKt.observe(this,context);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -43,4 +47,12 @@ public class TScrollView extends ScrollView {
         super.onViewAdded(child);
         AccessibilityDelegateHelper.onViewAdded(child);
     }
+
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme != null) {
+            theme.binding(this);
+        }
+    }
+
 }

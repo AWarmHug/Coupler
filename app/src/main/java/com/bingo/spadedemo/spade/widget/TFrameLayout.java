@@ -14,10 +14,12 @@ import androidx.lifecycle.Observer;
 
 import com.bingo.spadedemo.spade.helper.AccessibilityDelegateHelper;
 import com.bingo.spadedemo.theme.Skin;
+import com.bingo.spadedemo.theme.ThemeChanger;
 import com.bingo.spadedemo.theme.ThemesKt;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-public class TFrameLayout extends FrameLayout {
+public class TFrameLayout extends FrameLayout implements ThemeChanger {
 
 
     public TFrameLayout(Context context) {
@@ -35,19 +37,7 @@ public class TFrameLayout extends FrameLayout {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public TFrameLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        if (context instanceof AppCompatActivity) {
-            Log.d("TAG", "TFrameLayout: " + this.getId());
-
-            AppCompatActivity activity = (AppCompatActivity) context;
-            ThemesKt.getSkin().observe(activity, new Observer<Skin>() {
-                @Override
-                public void onChanged(Skin skin) {
-                    if (skin != null) {
-                        skin.binding(TFrameLayout.this);
-                    }
-                }
-            });
-        }
+        ViewExpantionKt.observe(this,context);
     }
 
     @Override
@@ -64,4 +54,12 @@ public class TFrameLayout extends FrameLayout {
     }
 
 
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme != null) {
+            if (theme.getBackground() != null) {
+                theme.getBackground().binding(this);
+            }
+        }
+    }
 }

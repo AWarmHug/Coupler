@@ -11,15 +11,18 @@ import androidx.annotation.RequiresApi;
 
 import com.bingo.spadedemo.spade.helper.AccessibilityDelegateHelper;
 import com.bingo.spade.Spade;
+import com.bingo.spadedemo.theme.ThemeChanger;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-public class TRelativeLayout extends RelativeLayout {
+public class TRelativeLayout extends RelativeLayout implements ThemeChanger {
+
     public TRelativeLayout(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public TRelativeLayout(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public TRelativeLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -42,6 +45,13 @@ public class TRelativeLayout extends RelativeLayout {
     public void onViewAdded(View child) {
         super.onViewAdded(child);
         AccessibilityDelegateHelper.onViewAdded(child);
+    }
+
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme != null) {
+            theme.binding(this);
+        }
     }
 
 }

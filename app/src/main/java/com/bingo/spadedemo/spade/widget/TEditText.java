@@ -5,20 +5,25 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.EditText;
 
-import com.bingo.spade.Spade;
+import androidx.annotation.Nullable;
+
+import androidx.appcompat.R;
+import com.bingo.spadedemo.theme.ThemeChanger;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-public class TEditText extends EditText {
+public class TEditText extends EditText implements ThemeChanger {
     public TEditText(Context context) {
-        super(context);
+        this(context,null);
     }
 
     public TEditText(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs,R.attr.editTextStyle);
     }
 
     public TEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        ViewExpantionKt.observe(this,context);
     }
 
     @Override
@@ -38,4 +43,18 @@ public class TEditText extends EditText {
     public boolean didTouchFocusSelect() {
         return super.didTouchFocusSelect();
     }
+
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme!=null){
+            if (theme.getTextColor()!=null){
+                theme.getTextColor().binding(this);
+            }
+            if (theme.getBackground()!=null){
+                theme.getBackground().binding(this);
+            }
+        }
+    }
+
+
 }

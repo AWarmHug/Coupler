@@ -1,6 +1,10 @@
 package com.bingo.spadedemo.theme
 
-interface ThemeChanger{
+import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 
-     fun onChange(theme: ViewTheme?)
+interface ThemeChanger {
+
+    fun onChange(theme: ViewTheme?)
+
 }

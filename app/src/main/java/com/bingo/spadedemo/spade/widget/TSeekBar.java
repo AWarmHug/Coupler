@@ -4,20 +4,27 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.SeekBar;
 
-import com.bingo.spade.Spade;
+import androidx.annotation.Nullable;
+
+import androidx.appcompat.R;
+
+import com.bingo.spadedemo.theme.ThemeChanger;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-public class TSeekBar extends SeekBar {
+public class TSeekBar extends SeekBar implements ThemeChanger {
+
     public TSeekBar(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public TSeekBar(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, R.attr.seekBarStyle);
     }
 
     public TSeekBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        ViewExpantionKt.observe(this, context);
     }
 
     @Override
@@ -27,5 +34,11 @@ public class TSeekBar extends SeekBar {
         return click;
     }
 
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme != null) {
+            theme.binding(this);
+        }
+    }
 
 }

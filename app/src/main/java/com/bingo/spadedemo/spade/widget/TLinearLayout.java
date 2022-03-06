@@ -14,10 +14,12 @@ import androidx.lifecycle.Observer;
 
 import com.bingo.spadedemo.spade.helper.AccessibilityDelegateHelper;
 import com.bingo.spadedemo.theme.Skin;
+import com.bingo.spadedemo.theme.ThemeChanger;
 import com.bingo.spadedemo.theme.ThemesKt;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-public class TLinearLayout extends LinearLayout {
+public class TLinearLayout extends LinearLayout implements ThemeChanger {
     public TLinearLayout(Context context) {
         this(context, null);
     }
@@ -34,15 +36,7 @@ public class TLinearLayout extends LinearLayout {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public TLinearLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        AppCompatActivity activity = (AppCompatActivity) context;
-        ThemesKt.getSkin().observe(activity, new Observer<Skin>() {
-            @Override
-            public void onChanged(Skin skin) {
-                if (skin != null) {
-                    skin.binding(TLinearLayout.this);
-                }
-            }
-        });
+        ViewExpantionKt.observe(this,context);
     }
 
     @Override
@@ -57,5 +51,14 @@ public class TLinearLayout extends LinearLayout {
     public void onViewAdded(View child) {
         super.onViewAdded(child);
         AccessibilityDelegateHelper.onViewAdded(child);
+    }
+
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme != null) {
+            if (theme.getBackground() != null) {
+                theme.getBackground().binding(this);
+            }
+        }
     }
 }

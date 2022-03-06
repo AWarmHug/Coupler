@@ -5,35 +5,29 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.CompoundButton;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.bingo.spade.Spade;
+import com.bingo.spadedemo.theme.ThemeChanger;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-/**
- * 作者：warm
- * 时间：2019-06-29 11:20
- * 描述：
- */
-public abstract class TCompoundButton extends CompoundButton {
+
+public abstract class TCompoundButton extends CompoundButton implements ThemeChanger {
 
     public TCompoundButton(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public TCompoundButton(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public TCompoundButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        ViewExpantionKt.observe(this, context);
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public TCompoundButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
 
     @Override
     public void setChecked(boolean checked) {
@@ -41,6 +35,13 @@ public abstract class TCompoundButton extends CompoundButton {
         super.setChecked(checked);
         if (c) {
             ViewTracker.getInstance().setChecked(this, checked);
+        }
+    }
+
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme != null) {
+            theme.binding(this);
         }
     }
 

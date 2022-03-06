@@ -3,17 +3,17 @@ package com.bingo.spadedemo.spade.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.CheckBox;
-import androidx.appcompat.R;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 
-import com.bingo.spadedemo.theme.Skin;
-import com.bingo.spadedemo.theme.ThemesKt;
+import androidx.annotation.Nullable;
+import androidx.appcompat.R;
+
+import com.bingo.spadedemo.theme.ThemeChanger;
+import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
-public class TCheckBox extends CheckBox {
+public class TCheckBox extends CheckBox implements ThemeChanger {
     public TCheckBox(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public TCheckBox(Context context, AttributeSet attrs) {
@@ -22,15 +22,7 @@ public class TCheckBox extends CheckBox {
 
     public TCheckBox(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        if (context instanceof AppCompatActivity) {
-            AppCompatActivity activity = (AppCompatActivity) context;
-            ThemesKt.getSkin().observe(activity, new Observer<Skin>() {
-                @Override
-                public void onChanged(Skin skin) {
-                    skin.binding(TCheckBox.this);
-                }
-            });
-        }
+        ViewExpantionKt.observe(this, context);
     }
 
     @Override
@@ -39,6 +31,13 @@ public class TCheckBox extends CheckBox {
         super.setChecked(checked);
         if (c) {
             ViewTracker.getInstance().setChecked(this, checked);
+        }
+    }
+
+    @Override
+    public void onChange(@Nullable ViewTheme theme) {
+        if (theme != null) {
+            theme.binding(this);
         }
     }
 

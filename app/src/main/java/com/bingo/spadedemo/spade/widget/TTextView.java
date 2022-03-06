@@ -17,24 +17,16 @@ import org.jetbrains.annotations.Nullable;
 
 public class TTextView extends TextView implements ThemeChanger {
     public TTextView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public TTextView(Context context, AttributeSet attrs) {
-        this(context, attrs,android.R.attr.textViewStyle);
+        this(context, attrs, android.R.attr.textViewStyle);
     }
 
     public TTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        if (context instanceof AppCompatActivity) {
-            AppCompatActivity activity = (AppCompatActivity) context;
-            ThemesKt.getSkin().observe(activity, new Observer<Skin>() {
-                @Override
-                public void onChanged(Skin skin) {
-                    skin.binding(TTextView.this);
-                }
-            });
-        }
+        ViewExpantionKt.observe(this, context);
     }
 
     @Override
@@ -46,9 +38,12 @@ public class TTextView extends TextView implements ThemeChanger {
 
     @Override
     public void onChange(@Nullable ViewTheme theme) {
-        if (theme!=null){
-            if (theme.getTextColor()!=null){
-                setTextColor(theme.getTextColor());
+        if (theme != null) {
+            if (theme.getTextColor() != null) {
+                theme.getTextColor().binding(this);
+            }
+            if (theme.getBackground() != null) {
+                theme.getBackground().binding(this);
             }
         }
     }
