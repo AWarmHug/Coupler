@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bingo.spade.Spade;
 import com.bingo.spadedemo.spade.helper.AccessibilityDelegateHelper;

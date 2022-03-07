@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.cardview.widget.CardView
 import androidx.core.graphics.alpha
 import com.bingo.spadedemo.track.DefaultFinder
 
@@ -18,17 +19,25 @@ class Skin(val common: ViewTheme? = null) : ThemeBinder {
         val DARK: Skin =
             Skin(
                 ViewTheme(
+                    colorPrimary=  Color.parseColor("#454141"),
+                    colorOnPrimary = Color.parseColor("#FFFFFF"),
                     TextColor(Color.parseColor("#F6F6F6")),
-                    Background(color = Color.parseColor("#000000"))
+                    Background(color = Color.parseColor("#000000")),
+                    background = Background(color = Color.parseColor("#454141"))
                 )
             )
         val LIGHT: Skin =
             Skin(
                 ViewTheme(
+                    colorPrimary=  Color.parseColor("#E8E8E8"),
+                    colorOnPrimary = Color.parseColor("#000000"),
                     TextColor(Color.parseColor("#070707")),
-                    Background(color = Color.parseColor("#E8E8E8"))
+                    Background(color = Color.parseColor("#FFFFFF")),
+                    background = Background(color = Color.parseColor("#E8E8E8"))
                 )
             )
+
+
     }
 
     override fun binding(view: View) {
@@ -41,19 +50,22 @@ class Skin(val common: ViewTheme? = null) : ThemeBinder {
 
         var viewTheme = themes[DefaultFinder.getName(view)]
         if (viewTheme == null) {
-
             var textColor: TextColor? = null
+            var itemBackground: Background? = null
             var background: Background? = null
             common?.let {
                 if (view.parent is ViewGroup && (view.parent as ViewGroup).id == android.R.id.content) {
                     background = it.background
                 }
 
+                if (view is CardView && view.background != null) {
+                    itemBackground = it.itemBackground
+                }
 
                 if (view.background == null || view is EditText) {
                     textColor = it.textColor
                 }
-                viewTheme = ViewTheme(textColor, background = background)
+                viewTheme = ViewTheme(it.colorPrimary,it.colorOnPrimary, textColor, itemBackground,background = background)
             }
 
         }

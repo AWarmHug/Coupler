@@ -26,12 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:textColor="#808080"
             android:text="无背景色" />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/tv"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/_80_text_color_black"

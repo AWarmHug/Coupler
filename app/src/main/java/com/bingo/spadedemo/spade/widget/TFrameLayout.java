@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 
 import com.bingo.spadedemo.spade.helper.AccessibilityDelegateHelper;
 import com.bingo.spadedemo.theme.ThemeChanger;
@@ -52,9 +53,10 @@ public class TFrameLayout extends FrameLayout implements ThemeChanger {
     @Override
     public void onChange(@Nullable ViewTheme theme) {
         if (theme != null) {
-            if (theme.getBackground() != null) {
-                theme.getBackground().binding(this);
-            }
+
+
+
+            theme.binding(this);
         }
     }
 }

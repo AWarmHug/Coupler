@@ -23,12 +23,11 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val list = view.findViewById<RecyclerView>(R.id.list)
-        list.adapter=ItemAdapter()
-        list.layoutManager=LinearLayoutManager(context)
+        list.adapter = ItemAdapter()
+        list.layoutManager = LinearLayoutManager(context)
 
 
     }
-
 
 
 }
@@ -56,11 +55,11 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return 2
+        return 20
     }
 
     override fun getItemViewType(position: Int): Int {
-        return position
+        return position % 2
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

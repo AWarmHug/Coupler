@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
@@ -16,7 +17,11 @@ class Background(
 
     override fun binding(view: View) {
         if (color != null) {
-            view.setBackgroundColor(color)
+            if (view is CardView){
+                view.setCardBackgroundColor(color)
+            }else {
+                view.setBackgroundColor(color)
+            }
         }
         if (drawable != null) {
             view.setBackgroundResource(drawable)
