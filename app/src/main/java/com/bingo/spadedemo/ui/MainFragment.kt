@@ -40,7 +40,7 @@ class MainFragment : Fragment() {
         }
 
         view.findViewById<TextView>(R.id.bt2).setOnClickListener {
-            val newSkin = Skin.LIGHT
+            val newSkin =skin.value?:Skin.LIGHT
             val viewTheme=
                 ViewTheme(TextColor(textColor = Color.BLACK), background = Background(url = "https://www.baidu.com/img/pc_9c5c85e6b953f1d172e1ed6821618b91.png"))
             newSkin.themes["bdeed52e7398c38977691652f3670007"] = viewTheme
