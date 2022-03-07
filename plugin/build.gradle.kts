@@ -28,7 +28,7 @@ gradlePlugin {
         //create or register
         create("spade") {
             id = "spade-plugin"
-            implementationClass = "com.bingo.spade.SpadePlugin"
+            implementationClass = "com.bingo.coupler.SpadePlugin"
 
         }
     }

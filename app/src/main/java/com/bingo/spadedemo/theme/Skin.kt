@@ -18,14 +18,14 @@ class Skin(val common: ViewTheme? = null) : ThemeBinder {
         val DARK: Skin =
             Skin(
                 ViewTheme(
-                    TextColor(Color.parseColor("#E8E8E8")),
-                    Background(color = Color.parseColor("#686868"))
+                    TextColor(Color.parseColor("#CCFFFFFF")),
+                    Background(color = Color.parseColor("#000000"))
                 )
             )
         val LIGHT: Skin =
             Skin(
                 ViewTheme(
-                    TextColor(Color.parseColor("#686868")),
+                    TextColor(Color.parseColor("#CC000000")),
                     Background(color = Color.parseColor("#E8E8E8"))
                 )
             )
@@ -48,6 +48,7 @@ class Skin(val common: ViewTheme? = null) : ThemeBinder {
                 if (view.parent is ViewGroup && (view.parent as ViewGroup).id == android.R.id.content) {
                     background = it.background
                 }
+
 
                 if (view.background == null || view is EditText) {
                     textColor = it.textColor

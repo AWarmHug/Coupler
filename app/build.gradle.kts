@@ -1,5 +1,5 @@
 //https://www.wenjiangs.com/docs/gradle-user-guide
-import com.bingo.spade.ext.SpadePluginExtension
+import com.bingo.coupler.ext.SpadePluginExtension
 
 //import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 
@@ -10,7 +10,7 @@ plugins {
 }
 
 apply {
-    plugin(com.bingo.spade.SpadePlugin::class.java)
+    plugin(com.bingo.coupler.SpadePlugin::class.java)
 }
 
 extensions.configure<SpadePluginExtension>("spade") {

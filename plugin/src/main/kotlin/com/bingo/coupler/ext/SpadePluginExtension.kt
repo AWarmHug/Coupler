@@ -1,8 +1,7 @@
-package com.bingo.spade.ext
+package com.bingo.coupler.ext
 
-import com.bingo.spade.getClassName
+import com.bingo.coupler.getClassName
 import org.gradle.api.provider.ListProperty
-import org.gradle.api.provider.Property
 
 abstract class SpadePluginExtension {
 

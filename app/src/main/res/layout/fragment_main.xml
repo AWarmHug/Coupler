@@ -11,6 +11,7 @@
         <Button
             android:id="@+id/bt"
             android:layout_width="wrap_content"
+            android:background="@color/_80_text_color_white"
             android:layout_height="wrap_content"
             android:text="Hello World!" />
 
@@ -33,12 +34,14 @@
         android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/_80_text_color_black"
         android:text="政府工作报告提到，去年国内生产总值达到114万亿元，增长8.1%。按照年平均汇率折算，总量达17.7万亿美元，稳居世界第二，占全球经济的比重预计将超过18%。人均GDP则达到1.25万美元，预计超过全球平均水平。" />
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#808080"
         android:text="政府工作报告提到，去年全球平均水平。" />
 
 

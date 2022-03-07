@@ -1,8 +1,8 @@
-package com.bingo.spade
+package com.bingo.coupler
 
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import com.bingo.spade.ext.SpadePluginExtension
+import com.bingo.coupler.ext.SpadePluginExtension
 import com.google.common.collect.Sets
 import javassist.ClassPool
 import org.apache.commons.codec.digest.DigestUtils

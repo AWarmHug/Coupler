@@ -15,6 +15,8 @@ import com.bingo.spadedemo.track.ViewTracker;
 
 @Keep
 public class TButton extends Button implements ThemeChanger {
+    AttributeSet mSet;
+
     public TButton(Context context) {
         this(context, null);
     }
@@ -30,6 +32,7 @@ public class TButton extends Button implements ThemeChanger {
     public TButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         ViewExpantionKt.observe(this, context);
+        mSet=attrs;
     }
 
     @Override

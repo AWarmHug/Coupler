@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="demo">#E8E8E8</color>
+    <color name="demo">#000000</color>
 
     <color name="black_40">#66000000</color>
+
+    <color name="_80_text_color_black">#CC000000</color>
+    <color name="_40_text_color_black">#66000000</color>
+
+    <color name="_80_text_color_white">#CCFFFFFF</color>
+    <color name="_40_text_color_white">#66FFFFFF</color>
+
+    <color name="_80_bg_black">#CC000000</color>
+    <color name="_40_bg_black">#66000000</color>
+
+    <color name="_80_bg_white">#CCFFFFFF</color>
+    <color name="_40_bg_white">#66FFFFFF</color>
 
 
     <color name="purple_200">#FFBB86FC</color>

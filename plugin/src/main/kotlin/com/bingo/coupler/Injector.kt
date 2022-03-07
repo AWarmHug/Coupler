@@ -1,6 +1,6 @@
-package com.bingo.spade
+package com.bingo.coupler
 
-import com.bingo.spade.ext.SpadePluginExtension
+import com.bingo.coupler.ext.SpadePluginExtension
 import com.google.common.io.Files
 import javassist.ClassPool
 import org.apache.commons.io.FileUtils

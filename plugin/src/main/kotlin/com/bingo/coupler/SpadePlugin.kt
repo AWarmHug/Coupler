@@ -1,7 +1,7 @@
-package com.bingo.spade
+package com.bingo.coupler
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import com.bingo.spade.ext.SpadePluginExtension
+import com.bingo.coupler.ext.SpadePluginExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.logging.LogLevel
