@@ -12,7 +12,10 @@ open class ViewTheme constructor(val textColor: TextColor? = null, val backgroun
     constructor(theme: Resources.Theme) : this() {
         val typedArray =
             theme.obtainStyledAttributes(R.styleable.AppCompatTheme)
-
+//            val colorPrimary = typedArray.getColor(
+//                com.google.android.material.R.styleable.AppCompatTheme_colorPrimary,
+//                Color.WHITE
+//            )
 
         typedArray.recycle()
 

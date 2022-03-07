@@ -5,38 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
-    <LinearLayout
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
-        <Button
-            android:id="@+id/bt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!" />
-
-        <Button
-            android:id="@+id/bt2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:theme="@style/Widget.MaterialComponents.Button.TextButton"
-            android:text="无背景色" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="政府工作报告提到，去年国内生产总值达到114万亿元，增长8.1%。按照年平均汇率折算，总量达17.7万亿美元，稳居世界第二，占全球经济的比重预计将超过18%。人均GDP则达到1.25万美元，预计超过全球平均水平。" />
-
-    <EditText
-        android:id="@+id/et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入手机号" />
+        android:layout_height="match_parent"/>
 
 
 </LinearLayout>

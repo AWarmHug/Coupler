@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Spade</string>
+    <string name="order_summary_all_order">全部订单</string>
+    <string name="order_summary_pending_payment">待付款</string>
+    <string name="order_summary_ongoing">未出行</string>
 </resources>

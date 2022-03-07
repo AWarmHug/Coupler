@@ -26,6 +26,8 @@ extensions.configure<SpadePluginExtension>("spade") {
 
 android {
     compileSdk = 31
+    dataBinding.isEnabled = true
+
     defaultConfig {
         applicationId = "com.bingo.spadedemo"
         minSdk = 21
