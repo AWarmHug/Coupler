@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.graphics.alpha
 import com.bingo.spadedemo.track.DefaultFinder
 
 
@@ -15,9 +16,19 @@ class Skin(val common: ViewTheme? = null) : ThemeBinder {
     companion object {
 
         val DARK: Skin =
-            Skin(ViewTheme(TextColor(Color.WHITE), Background(color = Color.BLACK)))
+            Skin(
+                ViewTheme(
+                    TextColor(Color.parseColor("#E8E8E8")),
+                    Background(color = Color.parseColor("#686868"))
+                )
+            )
         val LIGHT: Skin =
-            Skin(ViewTheme(TextColor(Color.BLACK), Background(color = Color.WHITE)))
+            Skin(
+                ViewTheme(
+                    TextColor(Color.parseColor("#686868")),
+                    Background(color = Color.parseColor("#E8E8E8"))
+                )
+            )
     }
 
     override fun binding(view: View) {

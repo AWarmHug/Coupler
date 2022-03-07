@@ -2,16 +2,14 @@ package com.bingo.spadedemo.spade.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.ContextThemeWrapper;
+import android.view.PixelCopy;
 import android.widget.Button;
 
 import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 
-import com.bingo.spadedemo.theme.Skin;
 import com.bingo.spadedemo.theme.ThemeChanger;
-import com.bingo.spadedemo.theme.ThemesKt;
 import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 

@@ -7,11 +7,24 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/bt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!" />
+
+        <Button
+            android:id="@+id/bt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/Widget.MaterialComponents.Button.TextButton"
+            android:text="无背景色" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv"
@@ -24,8 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="请输入手机号" />
-
-
 
 
 </LinearLayout>

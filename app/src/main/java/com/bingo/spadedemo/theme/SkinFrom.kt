@@ -1,5 +1,11 @@
 package com.bingo.spadedemo.theme
 
-interface SkinFrom {
+abstract class SkinFrom<T> {
+
+
+    abstract fun load()
+
+
+    abstract fun from(): T
 
 }

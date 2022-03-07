@@ -3,19 +3,14 @@ package com.bingo.spadedemo.spade.widget;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 
 import com.bingo.spadedemo.spade.helper.AccessibilityDelegateHelper;
-import com.bingo.spadedemo.theme.Skin;
 import com.bingo.spadedemo.theme.ThemeChanger;
-import com.bingo.spadedemo.theme.ThemesKt;
 import com.bingo.spadedemo.theme.ViewTheme;
 import com.bingo.spadedemo.track.ViewTracker;
 
