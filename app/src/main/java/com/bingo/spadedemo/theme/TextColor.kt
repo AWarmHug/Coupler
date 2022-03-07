@@ -26,6 +26,7 @@ class TextColor(
     }
 }
 
+//只针对特殊颜色的文字切换颜色
 private fun TextView.canChange(): Boolean {
     return textColors.defaultColor == ContextCompat.getColor(
         context,

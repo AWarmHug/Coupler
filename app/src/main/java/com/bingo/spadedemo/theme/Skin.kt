@@ -18,14 +18,14 @@ class Skin(val common: ViewTheme? = null) : ThemeBinder {
         val DARK: Skin =
             Skin(
                 ViewTheme(
-                    TextColor(Color.parseColor("#CCFFFFFF")),
+                    TextColor(Color.parseColor("#F6F6F6")),
                     Background(color = Color.parseColor("#000000"))
                 )
             )
         val LIGHT: Skin =
             Skin(
                 ViewTheme(
-                    TextColor(Color.parseColor("#CC000000")),
+                    TextColor(Color.parseColor("#070707")),
                     Background(color = Color.parseColor("#E8E8E8"))
                 )
             )

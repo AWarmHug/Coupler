@@ -4,11 +4,11 @@
 
     <color name="black_40">#66000000</color>
 
-    <color name="_80_text_color_black">#CC000000</color>
-    <color name="_40_text_color_black">#66000000</color>
+    <color name="_80_text_color_black">#070707</color>
+    <color name="_40_text_color_black">#A2A2A2</color>
 
-    <color name="_80_text_color_white">#CCFFFFFF</color>
-    <color name="_40_text_color_white">#66FFFFFF</color>
+    <color name="_80_text_color_white">#F6F6F6</color>
+    <color name="_40_text_color_white">#E8E8E8</color>
 
     <color name="_80_bg_black">#CC000000</color>
     <color name="_40_bg_black">#66000000</color>
