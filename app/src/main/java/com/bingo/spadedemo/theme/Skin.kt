@@ -19,21 +19,21 @@ class Skin(val common: ViewTheme? = null) : ThemeBinder {
         val DARK: Skin =
             Skin(
                 ViewTheme(
-                    colorPrimary=  Color.parseColor("#454141"),
+                    colorPrimary = Color.parseColor("#454141"),
                     colorOnPrimary = Color.parseColor("#FFFFFF"),
-                    TextColor(Color.parseColor("#F6F6F6")),
-                    Background(color = Color.parseColor("#000000")),
-                    background = Background(color = Color.parseColor("#454141"))
+                    textColor = TextColor(Color.parseColor("#F6F6F6")),
+                    itemBackground = Background(color = Color.parseColor("#000000")),
+                    background = Background(url = "https://img2.baidu.com/it/u=119414087,3701118394&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=889")
                 )
             )
         val LIGHT: Skin =
             Skin(
                 ViewTheme(
-                    colorPrimary=  Color.parseColor("#E8E8E8"),
+                    colorPrimary = Color.parseColor("#E8E8E8"),
                     colorOnPrimary = Color.parseColor("#000000"),
-                    TextColor(Color.parseColor("#070707")),
-                    Background(color = Color.parseColor("#FFFFFF")),
-                    background = Background(color = Color.parseColor("#E8E8E8"))
+                    textColor = TextColor(Color.parseColor("#070707")),
+                    itemBackground = Background(color = Color.parseColor("#FFFFFF")),
+                    background = Background(url = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20190908%2F1fe3d11a68264c17ac169564635df7db.jpeg&refer=http%3A%2F%2F5b0988e595225.cdn.sohucs.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1649315860&t=17e05de131227fcf4529033c290216e6")
                 )
             )
 
@@ -65,7 +65,14 @@ class Skin(val common: ViewTheme? = null) : ThemeBinder {
                 if (view.background == null || view is EditText) {
                     textColor = it.textColor
                 }
-                viewTheme = ViewTheme(it.colorPrimary,it.colorOnPrimary, textColor, itemBackground,background = background)
+                viewTheme = ViewTheme(
+                    it.colorPrimary,
+                    it.colorOnPrimary,
+                    null,
+                    textColor,
+                    itemBackground,
+                    background = background
+                )
             }
 
         }
