@@ -2,7 +2,7 @@ package com.bingo.coupler
 
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import com.bingo.coupler.ext.SpadePluginExtension
+import com.bingo.coupler.ext.CouplerPluginExtension
 import com.google.common.collect.Sets
 import javassist.ClassPool
 import org.apache.commons.codec.digest.DigestUtils
@@ -14,7 +14,7 @@ import java.io.FileInputStream
 import java.util.jar.JarFile
 
 
-class SpadeTransform(val project: Project, val extension: SpadePluginExtension) : Transform() {
+class CouplerTransform(val project: Project, val extension: CouplerPluginExtension) : Transform() {
 
     val without = "com.bingo.spade"
 

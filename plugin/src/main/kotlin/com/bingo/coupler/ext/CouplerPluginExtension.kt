@@ -3,7 +3,7 @@ package com.bingo.coupler.ext
 import com.bingo.coupler.getClassName
 import org.gradle.api.provider.ListProperty
 
-abstract class SpadePluginExtension {
+abstract class CouplerPluginExtension {
 
     abstract val packages: ListProperty<String>
 

@@ -1,6 +1,6 @@
 package com.bingo.coupler
 
-import com.bingo.coupler.ext.SpadePluginExtension
+import com.bingo.coupler.ext.CouplerPluginExtension
 import com.google.common.io.Files
 import javassist.ClassPool
 import org.apache.commons.io.FileUtils
@@ -16,7 +16,7 @@ import java.util.zip.ZipOutputStream
 
 class Injector() {
     val clazz = mutableMapOf<String, String>()
-    fun injectDir(pool: ClassPool, src: String, dest: String, shape: SpadePluginExtension) {
+    fun injectDir(pool: ClassPool, src: String, dest: String, shape: CouplerPluginExtension) {
         log("------Dir------------------------------------------------------------------------------------------")
         log("src = ${src}")
         log("dest = ${dest}")
@@ -79,7 +79,7 @@ class Injector() {
         }
     }
 
-    fun injectJar(pool: ClassPool, src: File, dest: File, config: SpadePluginExtension) {
+    fun injectJar(pool: ClassPool, src: File, dest: File, config: CouplerPluginExtension) {
         log("---Jar----------------------------------------------------------------------------------")
         log("src = ${src}")
         log(

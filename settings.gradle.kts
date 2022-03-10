@@ -37,3 +37,4 @@ dependencyResolutionManagement {
 rootProject.name = "Spade"
 
 include(":app", ":spade", ":plugin")
+include(":aspect")

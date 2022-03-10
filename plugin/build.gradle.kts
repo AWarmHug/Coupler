@@ -26,11 +26,12 @@ version = "0.0.2"
 gradlePlugin {
     plugins {
         //create or register
-        create("spade") {
-            id = "spade-plugin"
-            implementationClass = "com.bingo.coupler.SpadePlugin"
+        create("coupler") {
+            id = "coupler-plugin"
+            implementationClass = "com.bingo.coupler.CouplerPlugin"
 
         }
+
     }
 }
 
