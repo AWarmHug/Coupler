@@ -12,7 +12,11 @@ dependencies {
     implementation("com.android.tools.build:gradle-api:7.1.1")
     implementation("com.android.tools.build:gradle-core:3.1.4")
     implementation("org.javassist:javassist:3.28.0-GA")
-    implementation("com.google.android:android:4.1.1.4")
+    implementation("org.javassist:javassist:3.28.0-GA")
+    implementation("org.ow2.asm:asm:9.0")
+    compileOnly("com.google.android:android:4.1.1.4")
+    api("com.github.AWarmHug:aspect-annotation:0.0.2")
+
 }
 
 publishing {
@@ -29,25 +33,7 @@ gradlePlugin {
         create("coupler") {
             id = "coupler-plugin"
             implementationClass = "com.bingo.coupler.CouplerPlugin"
-
         }
 
     }
-}
-
-
-
-repositories {
-    maven {
-        setUrl("https://maven.aliyun.com/repository/public")
-    }
-    maven {
-        setUrl("https://maven.aliyun.com/repository/google")
-    }
-    maven {
-        setUrl("https://maven.aliyun.com/repository/gradle-plugin")
-    }
-    gradlePluginPortal()
-    google()
-    mavenCentral()
 }

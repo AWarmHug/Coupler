@@ -10,7 +10,10 @@ pluginManagement {
             setUrl("https://maven.aliyun.com/repository/gradle-plugin")
         }
         maven {
-            url = uri("plugin/build/repository")
+            url = uri("coupler-plugin/build/repository")
+        }
+        maven {
+            url = uri("repository")
         }
         gradlePluginPortal()
         google()
@@ -36,5 +39,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Spade"
 
-include(":app", ":spade", ":plugin")
+includeBuild("coupler-plugin")
+include(":app", ":spade")
 include(":aspect")
+include(":aspect-annotation")

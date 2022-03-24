@@ -1,26 +1,22 @@
 //https://www.wenjiangs.com/docs/gradle-user-guide
-import com.bingo.coupler.ext.CouplerPluginExtension
-
-//import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-//    id("spade-plugin")
+    id("coupler-plugin")
 }
 
-apply {
-    plugin(com.bingo.coupler.CouplerPlugin::class.java)
-}
+//apply {
+//    plugin(com.bingo.coupler.CouplerPlugin::class.java)
+//}
 
-extensions.configure<CouplerPluginExtension>("spade") {
+coupler {
     packages.addAll("com.bingo.spadedemo.spade.widget", "com.bingo.spadedemo.spade.activity")
     excludes.addAll("androidx.activity")
 }
-
-//spade {
-//    packages.addAll("com.bingo.spadedemo.spade.widget", "com.bingo.spadedemo.spade.activity")
-//    excludes.addAll("androidx.activity")
+//aspect {
+//    packages.addAll("com.bingo.spadedemo.aspect")
+//
 //}
 
 
@@ -65,7 +61,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     implementation(project(":spade"))
-    implementation(project(":aspect"))
+    api(project(":aspect"))
 
     implementation("com.github.bumptech.glide:glide:4.13.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.13.0")
