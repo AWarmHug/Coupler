@@ -29,13 +29,12 @@ class Injector() {
                 if (file.isFile) {
                     val out = File(dest + filePath.substring(src.length))
                     Files.createParentDirs(out)
-                    if (filePath.endsWith(".class") && !filePath.contains('-') && !filePath.contains(
-                            "R$"
-                        ) && !filePath.contains(
-                            "R.class"
-                        ) && !filePath.contains(
-                            "BuildConfig.class"
-                        ) && shape.filter(filePath)
+                    if (filePath.endsWith(".class")
+                        && !filePath.contains("module-info")
+                        && !filePath.contains("R$")
+                        && !filePath.contains("R.class")
+                        && !filePath.contains("BuildConfig.class")
+                        && !shape.filter(filePath)
                     ) {
 
                         val reader = ClassReader(FileInputStream(filePath))
@@ -106,11 +105,13 @@ class Injector() {
             val entryName = jarEntry.name
             zos.putNextEntry(ZipEntry(entryName))
 
-            if (!jarEntry.isDirectory() && !entryName.contains('-') && entryName.endsWith(".class") && !entryName.contains(
-                    "R$"
-                ) && !entryName.contains("R.class") && !entryName.contains("BuildConfig.class") && config.filter(
-                    entryName
-                )
+            if (!jarEntry.isDirectory()
+                && entryName.endsWith(".class")
+                && !entryName.contains("module-info")
+                && !entryName.contains("R$")
+                && !entryName.contains("R.class")
+                && !entryName.contains("BuildConfig.class")
+                && !config.filter(entryName)
             ) {
 
 

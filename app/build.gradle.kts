@@ -11,8 +11,8 @@ plugins {
 //}
 
 coupler {
-    packages.addAll("com.bingo.spadedemo.spade.widget", "com.bingo.spadedemo.spade.activity")
-//    excludes.addAll("androidx.activity")
+    packages.addAll("com.bingo.spadedemo.spade.widget"/*, "com.bingo.spadedemo.spade.activity"*/)
+    excludes.addAll("androidx.activity")
 }
 //aspect {
 //    packages.addAll("com.bingo.spadedemo.aspect")

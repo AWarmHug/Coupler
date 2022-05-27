@@ -31,7 +31,6 @@ class MainFragment : Fragment() {
 
 
         view.findViewById<Button>(R.id.bt).setOnClickListener {
-            Log.d("TAG", "onCreate: ")
             //通过这种方式可以
 //            if (skin.value == null || skin.value == Skin.DARK) {
 //                skin.value = Skin.LIGHT

@@ -16,10 +16,10 @@ abstract class CouplerPluginExtension {
 
 
     fun filter(path: String): Boolean {
-        var f = true
+        var f = false
         excludes.get().forEach {
             if (getClassName(path).contains(getClassName(it))) {
-                f = false
+                f = true
             }
         }
         return f

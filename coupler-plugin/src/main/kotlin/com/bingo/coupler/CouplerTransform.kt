@@ -16,7 +16,7 @@ import java.util.jar.JarFile
 
 class CouplerTransform(val project: Project, val extension: CouplerPluginExtension) : Transform() {
 
-    val without = "com.bingo.spade"
+    val without = "com.bingo.spade."
 
     override fun getName(): String = "SpadeTransform"
 
