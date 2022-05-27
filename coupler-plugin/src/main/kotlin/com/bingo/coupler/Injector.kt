@@ -58,18 +58,19 @@ class Injector() {
 //                            IOUtils.write(itemViewCtClass.toBytecode(),new FileOutputStream(dest + filePath.substring(src.length())))
                             itemViewCtClass.detach()
                         } else {
-//                            if (superClassName == "androidx.fragment.app.Fragment") {
-//                                def fragment = pool.get(Utils.getClassName(reader.className))
-//                                if (fragment.isFrozen()) {
-//                                    fragment.defrost()
-//                                }
-//                                CtMethod ctMethod = fragment.getDeclaredMethod("onViewCreated", pool.get(["android.view.View", "android.os.Bundle"] as String[]))
-//                                ctMethod.insertAfter("\$1.setTag(com.bingo.track.R.id.key_fragment_name,\"${reader.className}\");")
-//                                fragment.writeFile(dest)
-//                                fragment.detach()
-//                            } else {
-                            FileUtils.copyFile(file, out)
-//                            }
+                            if (superClassName == "androidx.appcompat.app.AppCompatActivity") {
+                                val activity = pool.get(getClassName(reader.className))
+                                if (activity.isFrozen()) {
+                                    activity.defrost()
+                                }
+                                activity.declaredMethods.forEach {
+                                    it.insertBefore("android.util.Log.d(\"TAG\", \"method: ${it.name}\");")
+                                }
+                                activity.writeFile(dest)
+                                activity.detach()
+                            } else {
+                                FileUtils.copyFile(file, out)
+                            }
                         }
                     } else {
                         FileUtils.copyFile(file, out)
@@ -134,7 +135,21 @@ class Injector() {
                         itemViewCtClass.detach()
                     }
                 } else {
-                    IOUtils.copy(inJarFile.getInputStream(jarEntry), zos)
+
+                    if (superClassName == "androidx.appcompat.app.AppCompatActivity") {
+                        val activity = pool.get(getClassName(reader.className))
+                        if (activity.isFrozen()) {
+                            activity.defrost()
+                        }
+                        activity.declaredMethods.forEach {
+                            it.insertBefore("android.util.Log.d(\"TAG\", \"method: ${it.name}\");")
+                            it
+                        }
+//                        activity.writeFile(dest)
+                        activity.detach()
+                    } else {
+                        IOUtils.copy(inJarFile.getInputStream(jarEntry), zos)
+                    }
                 }
 
             } else {

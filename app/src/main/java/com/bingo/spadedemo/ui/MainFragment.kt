@@ -1,5 +1,6 @@
 package com.bingo.spadedemo.ui
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -32,11 +33,12 @@ class MainFragment : Fragment() {
         view.findViewById<Button>(R.id.bt).setOnClickListener {
             Log.d("TAG", "onCreate: ")
             //通过这种方式可以
-            if (skin.value == null || skin.value == Skin.DARK) {
-                skin.value = Skin.LIGHT
-            } else {
-                skin.value = Skin.DARK
-            }
+//            if (skin.value == null || skin.value == Skin.DARK) {
+//                skin.value = Skin.LIGHT
+//            } else {
+//                skin.value = Skin.DARK
+//            }
+            startActivity(Intent(context,SecondActivity::class.java))
         }
 
         view.findViewById<TextView>(R.id.bt2).setOnClickListener {
