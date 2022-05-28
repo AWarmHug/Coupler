@@ -3,17 +3,15 @@ package com.bingo.spadedemo.ui
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bingo.spadedemo.R
-import com.bingo.spadedemo.spade.widget.TFrameLayout
 import com.bingo.spadedemo.theme.*
+import kotlin.random.Random
 
 class MainFragment : Fragment() {
 
@@ -30,14 +28,25 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        view.findViewById<Button>(R.id.bt).setOnClickListener {
+        view.findViewById<Button>(R.id.btnChangeTheme).setOnClickListener {
             //通过这种方式可以
-//            if (skin.value == null || skin.value == Skin.DARK) {
-//                skin.value = Skin.LIGHT
-//            } else {
-//                skin.value = Skin.DARK
-//            }
-            startActivity(Intent(context,SecondActivity::class.java))
+            if (skin.value == null || skin.value == Skin.DARK) {
+                skin.value = Skin.LIGHT
+            } else {
+                skin.value = Skin.DARK
+            }
+        }
+        view.findViewById<Button>(R.id.btnToSecond).setOnClickListener {
+            startActivity(Intent(context, SecondActivity::class.java))
+        }
+        view.findViewById<Button>(R.id.btnPlay).setOnClickListener {
+            (requireActivity() as MainActivity).play("皮球")
+        }
+        view.findViewById<Button>(R.id.btnLogin).setOnClickListener {
+            UserUtils().login(Random.nextInt().toString())
+        }
+        view.findViewById<Button>(R.id.btnLogout).setOnClickListener {
+            UserUtils().logout()
         }
 
         view.findViewById<TextView>(R.id.bt2).setOnClickListener {

@@ -14,7 +14,7 @@ import java.io.FileInputStream
 import java.util.jar.JarFile
 
 
-class CouplerTransform(val project: Project, val extension: CouplerPluginExtension) : Transform() {
+class CouplerTransform(val project: Project, val extension: CouplerPluginExtension, val trackInfos: Map<String, Map<String, TrackContent>>) : Transform() {
 
     val without = "com.bingo.spade."
 
@@ -39,7 +39,7 @@ class CouplerTransform(val project: Project, val extension: CouplerPluginExtensi
 
     override fun transform(transformInvocation: TransformInvocation) {
         super.transform(transformInvocation)
-        val injector = Injector()
+        val injector = Injector(trackInfos)
 
         val changePackages = extension.packages.get()
 

@@ -40,7 +40,7 @@ public class DefaultFinder {
 
         String md5 = Utils.toMD5(sb.toString());
 
-        Log.d("Track", "getExtra: " + sb.toString() + ",MD5: " + md5);
+        Log.d("TAG", "getExtra: " + sb.toString() + ",MD5: " + md5);
 
         return md5;
     }

@@ -13,6 +13,7 @@ plugins {
 coupler {
     packages.addAll("com.bingo.spadedemo.spade.widget"/*, "com.bingo.spadedemo.spade.activity"*/)
     excludes.addAll("androidx.activity")
+    jsonFilePath.set("./track/track.json")
 }
 //aspect {
 //    packages.addAll("com.bingo.spadedemo.aspect")

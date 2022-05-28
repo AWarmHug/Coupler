@@ -2,6 +2,7 @@ package com.bingo.coupler
 
 import com.bingo.coupler.ext.CouplerPluginExtension
 import com.google.common.io.Files
+import com.google.gson.Gson
 import javassist.ClassPool
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.IOUtils
@@ -14,7 +15,7 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
 
-class Injector() {
+class Injector(val trackInfos: Map<String, Map<String, TrackContent>>) {
     val clazz = mutableMapOf<String, String>()
     fun injectDir(pool: ClassPool, src: String, dest: String, shape: CouplerPluginExtension) {
         log("------Dir------------------------------------------------------------------------------------------")
@@ -57,16 +58,20 @@ class Injector() {
 //                            IOUtils.write(itemViewCtClass.toBytecode(),new FileOutputStream(dest + filePath.substring(src.length())))
                             itemViewCtClass.detach()
                         } else {
-                            if (superClassName == "androidx.appcompat.app.AppCompatActivity") {
-                                val activity = pool.get(getClassName(reader.className))
-                                if (activity.isFrozen()) {
-                                    activity.defrost()
+                            val trackContents = trackInfos[getClassName(reader.className)]
+                            if (trackContents != null) {
+                                val targetClass = pool.get(getClassName(reader.className))
+                                if (targetClass.isFrozen()) {
+                                    targetClass.defrost()
                                 }
-                                activity.declaredMethods.forEach {
-                                    it.insertBefore("android.util.Log.d(\"TAG\", \"method: ${it.name}\");")
+
+                                targetClass.declaredMethods.forEach { ctMethod ->
+                                    trackContents[ctMethod.name]?.let {
+                                        ctMethod.insertBefore(it.content)
+                                    }
                                 }
-                                activity.writeFile(dest)
-                                activity.detach()
+                                targetClass.writeFile(dest)
+                                targetClass.detach()
                             } else {
                                 FileUtils.copyFile(file, out)
                             }
@@ -136,18 +141,20 @@ class Injector() {
                         itemViewCtClass.detach()
                     }
                 } else {
+                    val trackContents = trackInfos[reader.className]
+                    if (trackContents != null) {
+                        val targetClass = pool.get(getClassName(reader.className))
+                        if (targetClass.isFrozen()) {
+                            targetClass.defrost()
+                        }
 
-                    if (superClassName == "androidx.appcompat.app.AppCompatActivity") {
-                        val activity = pool.get(getClassName(reader.className))
-                        if (activity.isFrozen()) {
-                            activity.defrost()
+                        targetClass.declaredMethods.forEach { ctMethod ->
+                            trackContents[ctMethod.name]?.let {
+                                ctMethod.insertBefore(it.content)
+                            }
                         }
-                        activity.declaredMethods.forEach {
-                            it.insertBefore("android.util.Log.d(\"TAG\", \"method: ${it.name}\");")
-                            it
-                        }
-//                        activity.writeFile(dest)
-                        activity.detach()
+                        IOUtils.write(targetClass.toBytecode(), zos)
+                        targetClass.detach()
                     } else {
                         IOUtils.copy(inJarFile.getInputStream(jarEntry), zos)
                     }

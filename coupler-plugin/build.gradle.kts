@@ -14,6 +14,7 @@ dependencies {
     implementation("org.javassist:javassist:3.28.0-GA")
     implementation("org.javassist:javassist:3.28.0-GA")
     implementation("org.ow2.asm:asm:9.0")
+    implementation("com.google.code.gson:gson:2.8.6")
     compileOnly("com.google.android:android:4.1.1.4")
     api("com.github.AWarmHug:aspect-annotation:0.0.2")
 
