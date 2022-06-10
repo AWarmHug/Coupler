@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bingo.spadedemo.R
 import com.bingo.spadedemo.theme.*
+import com.bingo.spadedemo.ui.second.SecondActivity
 import kotlin.random.Random
 
 class MainFragment : Fragment() {
@@ -43,10 +44,10 @@ class MainFragment : Fragment() {
             (requireActivity() as MainActivity).play("皮球")
         }
         view.findViewById<Button>(R.id.btnLogin).setOnClickListener {
-            UserUtils().login(Random.nextInt().toString())
+            UserUtils("").login(Random.nextInt().toString())
         }
         view.findViewById<Button>(R.id.btnLogout).setOnClickListener {
-            UserUtils().logout()
+            UserUtils("").logout()
         }
 
         view.findViewById<TextView>(R.id.bt2).setOnClickListener {

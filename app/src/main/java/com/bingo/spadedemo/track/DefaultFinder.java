@@ -20,6 +20,8 @@ import com.bingo.spade.TrackExtraName;
 import com.bingo.spade.Finder;
 import com.bingo.spade.utils.Utils;
 
+import java.util.List;
+
 public class DefaultFinder {
 
     public ViewTrace find(View view) {
@@ -31,18 +33,63 @@ public class DefaultFinder {
 
 
     public static String getName(View view) {
+        ViewTree viewTree = generateViewTree(view);
 
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(getViewName(view))
-                .append("$")
-                .append(getActivityName(view));
+        StringBuilder sb = new StringBuilder(viewTree.generateAllPath());
 
         String md5 = Utils.toMD5(sb.toString());
 
-        Log.d("TAG", "getExtra: " + sb.toString() + ",MD5: " + md5);
+        Log.d("Track", "TrackName: " + sb + ",MD5: " + md5);
 
         return md5;
+    }
+
+
+    private static ViewTree generateViewTree(View view) {
+        ViewTree viewTree = new ViewTree(view.getClass().getSimpleName());
+
+        if (view.getId() != View.NO_ID) {
+            String idName;
+            try {
+                idName = view.getResources().getResourceEntryName(view.getId());
+            } catch (Resources.NotFoundException exception) {
+                idName = null;
+            }
+            if (!TextUtils.isEmpty(idName)) {
+                viewTree.setId(idName);
+            }
+        }
+        if (view.getParent() != null&&(!view.getParent().getClass().getSimpleName().equals("DecorView"))&& view.getParent() instanceof ViewGroup && ((ViewGroup) view.getParent()).getId() != android.R.id.content) {
+            ViewGroup viewGroup = (ViewGroup) view.getParent();
+
+            int index = -1;
+            if (viewGroup instanceof RecyclerView) {
+                index = ((RecyclerView) viewGroup).getChildAdapterPosition(view);
+            } else if (viewGroup instanceof AdapterView) {
+                index = ((AdapterView) viewGroup).getPositionForView(view);
+            } else if (viewGroup instanceof ViewPager) {
+                index = ((ViewPager) viewGroup).getCurrentItem();
+            } else {
+//                index = getSameIndex(view, viewGroup);
+            }
+            if (index != -1) {
+                viewTree.setIndex(index);
+            }
+            ViewTree parent = generateViewTree(viewGroup);
+            parent.setChild(viewTree);
+            viewTree.setParent(parent);
+        } else {
+            ViewTree parent = new ViewTree(getActivityName(view));
+            parent.setChild(viewTree);
+            viewTree.setParent(parent);
+        }
+
+        if (view.getTag(com.bingo.spade.R.id.key_extra_name) != null) {
+            viewTree.setExtra((String) view.getTag(com.bingo.spade.R.id.key_extra_name));
+        }
+
+        return viewTree;
+
     }
 
 
@@ -74,96 +121,6 @@ public class DefaultFinder {
             context = ((ContextWrapper) context).getBaseContext();
         }
         return null;
-    }
-
-
-    public static String getViewName(View view) {
-        StringBuilder sb = new StringBuilder();
-        appendName(sb, view);
-        if (view.getParent() instanceof ViewGroup) {
-            ViewGroup parent = (ViewGroup) view.getParent();
-            while (parent != null && parent.getId() != android.R.id.content) {
-                appendName(sb, parent);
-                if (parent.getParent() instanceof ViewGroup) {
-                    parent = (ViewGroup) parent.getParent();
-                } else {
-                    break;
-                }
-            }
-        }
-        return sb.toString();
-    }
-
-
-    public static void appendName(StringBuilder sb, View view) {
-        if (view.getTag(com.bingo.spade.R.id.key_extra_name) != null) {
-            sb.append("$")
-                    .append(view.getTag(com.bingo.spade.R.id.key_extra_name));
-            ViewGroup viewGroup = (ViewGroup) view.getParent();
-
-            if (viewGroup instanceof ViewPager) {
-                sb.append(":");
-                sb.append(((ViewPager) viewGroup).getCurrentItem());
-            }
-        } else {
-            if (view.getId() != View.NO_ID) {
-                String idName;
-                try {
-                    idName = view.getResources().getResourceEntryName(view.getId());
-                } catch (Resources.NotFoundException exception) {
-                    idName = null;
-                }
-
-                if (!TextUtils.isEmpty(idName)) {
-                    appendIDView(sb, view, idName);
-
-                    if (view.getId() == androidx.appcompat.R.id.parentPanel) {
-                        TextView message = view.findViewById(android.R.id.message);
-                        if (message != null) {
-                            String msgStr = message.getText().toString();
-                            if (msgStr.length() > 10) {
-                                msgStr = msgStr.substring(0, 10);
-                            }
-                            sb.append(msgStr);
-                        }
-                    }
-
-                } else {
-                    appendNoIDView(sb, view);
-                }
-
-            } else {
-                appendNoIDView(sb, view);
-            }
-
-        }
-    }
-
-    public static void appendIDView(StringBuilder sb, View view, String idName) {
-        sb.append("$");
-        sb.append(view.getClass().getSimpleName())
-                .append(":")
-                .append(idName);
-    }
-
-    public static void appendNoIDView(StringBuilder sb, View view) {
-        sb.append("$");
-        sb.append(view.getClass().getSimpleName());
-        if (view.getParent() instanceof ViewGroup) {
-            ViewGroup viewGroup = (ViewGroup) view.getParent();
-            if (viewGroup != null) {
-                if (Spade.isChildNeedIndex(viewGroup) || view.getClass().getName().equals("com.google.android.material.tabs.TabLayout$TabView")) {
-                    sb.append(":");
-                    if (viewGroup instanceof RecyclerView) {
-                        sb.append(((RecyclerView) viewGroup).getChildAdapterPosition(view));
-                    } else if (viewGroup instanceof AdapterView) {
-                        sb.append(((AdapterView) viewGroup).getPositionForView(view));
-                    } else {
-                        sb.append(getSameIndex(view, viewGroup));
-                    }
-                }
-            }
-        }
     }
 
 

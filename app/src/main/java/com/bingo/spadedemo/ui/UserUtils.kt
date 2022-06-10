@@ -2,7 +2,8 @@ package com.bingo.spadedemo.ui
 
 import android.util.Log
 
-class UserUtils {
+class UserUtils(val id: String) {
+
 
     fun logout() {
         Log.d("UserUtils", "登出")

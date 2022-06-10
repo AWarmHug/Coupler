@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">track</string>
+    <string name="app_name">spade</string>
     <item name="key_extra_name" type="id" />
     <item name="key_child_need_index" type="id" />
     <item name="key_track_content" type="id" />

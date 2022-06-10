@@ -1,18 +1,28 @@
 {
-  "com.bingo.spadedemo.ui.UserUtils":{
-    "logout":{
-      "content":"android.util.Log.d(\"Track\", \"method: 登出\");"
+  "com.bingo.spadedemo.ui.UserUtils": {
+    "logout": {
+      "content": "android.util.Log.d(\"Track\", \"method: 登出\");"
     },
-    "login":{
-      "content":"android.util.Log.d(\"Track\", \"method: 登录-id:\"+$1);"
+    "login": {
+      "content": "android.util.Log.d(\"Track\", \"method: 登录-id:\"+$1);"
     }
   },
-  "com.bingo.spadedemo.ui.MainActivity":{
-    "onCreate":{
-      "content":"android.util.Log.d(\"Track\", \"method: onCreate\");"
+  "com.bingo.spadedemo.ui.MainActivity": {
+    "onCreate": {
+      "content": "android.util.Log.d(\"Track\", \"method: onCreate\");"
     },
-    "play":{
-      "content":"android.util.Log.d(\"Track\", \"method: 玩\");"
+    "play": {
+      "content": "android.util.Log.d(\"Track\", \"method: 玩\");"
+    }
+  },
+  "androidx.recyclerview.widget.RecyclerView": {
+    "initAdapterManager": {
+      "content": "addOnScrollListener(new com.bingo.spadedemo.spade.listener.RecyclerViewScrollListener());"
+    }
+  },
+  "androidx.viewpager.widget.ViewPager": {
+    "initViewPager": {
+      "content": "addOnPageChangeListener(new com.bingo.spadedemo.spade.listener.ViewPagerPageChangeListener());"
     }
   }
 }

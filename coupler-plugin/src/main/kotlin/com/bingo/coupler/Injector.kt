@@ -2,7 +2,6 @@ package com.bingo.coupler
 
 import com.bingo.coupler.ext.CouplerPluginExtension
 import com.google.common.io.Files
-import com.google.gson.Gson
 import javassist.ClassPool
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.IOUtils
@@ -53,6 +52,17 @@ class Injector(val trackInfos: Map<String, Map<String, TrackContent>>) {
                             if (itemViewCtClass.isFrozen()) {
                                 itemViewCtClass.defrost()
                             }
+                            val trackContents = trackInfos[getClassName(reader.className)]
+                            if (trackContents != null) {
+                                val targetClass = pool.get(getClassName(reader.className))
+
+                                targetClass.declaredMethods.forEach { ctMethod ->
+                                    trackContents[ctMethod.name]?.let {
+                                        ctMethod.insertBefore(it.content)
+                                    }
+                                }
+                            }
+
                             itemViewCtClass.superclass = pool.get(value)
                             itemViewCtClass.writeFile(dest)
 //                            IOUtils.write(itemViewCtClass.toBytecode(),new FileOutputStream(dest + filePath.substring(src.length())))
@@ -136,12 +146,23 @@ class Injector(val trackInfos: Map<String, Map<String, TrackContent>>) {
                         if (itemViewCtClass.isFrozen()) {
                             itemViewCtClass.defrost()
                         }
+                        val trackContents = trackInfos[getClassName(reader.className)]
+                        if (trackContents != null) {
+                            val targetClass = pool.get(getClassName(reader.className))
+
+                            targetClass.declaredMethods.forEach { ctMethod ->
+                                trackContents[ctMethod.name]?.let {
+                                    ctMethod.insertBefore(it.content)
+                                }
+                            }
+                        }
+
                         itemViewCtClass.superclass = pool.get(value)
                         IOUtils.write(itemViewCtClass.toBytecode(), zos)
                         itemViewCtClass.detach()
                     }
                 } else {
-                    val trackContents = trackInfos[reader.className]
+                    val trackContents = trackInfos[getClassName(reader.className)]
                     if (trackContents != null) {
                         val targetClass = pool.get(getClassName(reader.className))
                         if (targetClass.isFrozen()) {

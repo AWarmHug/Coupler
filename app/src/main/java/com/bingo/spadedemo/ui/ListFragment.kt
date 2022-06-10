@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bingo.spadedemo.R
+import com.bingo.spadedemo.spade.listener.RecyclerViewScrollListener
 
-class ListFragment : Fragment() {
+class ListFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +27,8 @@ class ListFragment : Fragment() {
         val list = view.findViewById<RecyclerView>(R.id.list)
         list.adapter = ItemAdapter()
         list.layoutManager = LinearLayoutManager(context)
+
+        list.addOnScrollListener(RecyclerViewScrollListener())
 
 
     }
@@ -51,6 +55,13 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.itemView.setOnClickListener {
+            Toast.makeText(
+                holder.itemView.context,
+                "点击",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
     }
 
