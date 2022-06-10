@@ -18,6 +18,8 @@ import com.bingo.spade.Spade;
 import com.bingo.spade.TrackExtraName;
 import com.bingo.spade.utils.Utils;
 
+import java.lang.reflect.Field;
+
 public class DefaultFinder {
 
     public ViewTrace find(View view) {
@@ -55,7 +57,7 @@ public class DefaultFinder {
                 viewTree.setId(idName);
             }
         }
-        if (view.getParent() != null&&(!view.getParent().getClass().getSimpleName().equals("DecorView"))&& view.getParent() instanceof ViewGroup && ((ViewGroup) view.getParent()).getId() != android.R.id.content) {
+        if (view.getParent() != null && (!view.getParent().getClass().getSimpleName().equals("DecorView")) && view.getParent() instanceof ViewGroup && ((ViewGroup) view.getParent()).getId() != android.R.id.content) {
             ViewGroup viewGroup = (ViewGroup) view.getParent();
 
             int index = -1;
@@ -82,6 +84,24 @@ public class DefaultFinder {
 
         if (view.getTag(com.bingo.spade.R.id.key_extra_name) != null) {
             viewTree.setExtra((String) view.getTag(com.bingo.spade.R.id.key_extra_name));
+        }
+
+        if (view.getTag(com.bingo.spade.R.id.key_fragment_name) != null) {
+            Object fragment = view.getTag(com.bingo.spade.R.id.key_fragment_name);
+            try {
+                Field eid = fragment.getClass().getDeclaredField("eid");
+                eid.setAccessible(true);
+                String eidValue = (String) eid.get(fragment);
+                Log.d("Track", "generateViewTree: eidValue = " + eidValue);
+
+
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+
         }
 
         return viewTree;

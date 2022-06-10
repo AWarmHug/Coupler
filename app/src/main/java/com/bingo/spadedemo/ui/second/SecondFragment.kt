@@ -13,10 +13,18 @@ import com.bingo.spadedemo.databinding.FragmentSecondBinding
 import com.bingo.spadedemo.databinding.FragmentSecondListItemBinding
 import com.bingo.spadedemo.ui.BaseFragment
 import com.bumptech.glide.Glide
+import java.util.*
 
 class SecondFragment : BaseFragment() {
 
     lateinit var binding: FragmentSecondBinding
+
+    private var eid = ""
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        eid = "eid:${UUID.randomUUID().toString()}"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

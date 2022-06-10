@@ -13,6 +13,9 @@ public class BaseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.setTag(com.bingo.spade.R.id.key_extra_name, getClass().getSimpleName());
+
+        view.setTag(com.bingo.spade.R.id.key_fragment_name, this);
+
     }
 
     @Nullable
