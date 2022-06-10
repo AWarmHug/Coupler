@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,10 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bingo.spade.Spade;
 import com.bingo.spade.TrackExtraName;
-import com.bingo.spade.Finder;
 import com.bingo.spade.utils.Utils;
-
-import java.util.List;
 
 public class DefaultFinder {
 

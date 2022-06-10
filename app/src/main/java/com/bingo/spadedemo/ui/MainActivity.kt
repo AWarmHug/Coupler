@@ -1,17 +1,13 @@
 package com.bingo.spadedemo.ui
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.bingo.spadedemo.R
-import com.bingo.spadedemo.spade.listener.ViewPagerPageChangeListener
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -42,9 +38,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }.attach()
-
-        MainActivity::class.java
-
     }
 
     fun play(message:String){

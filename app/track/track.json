@@ -22,7 +22,7 @@
   },
   "androidx.viewpager.widget.ViewPager": {
     "initViewPager": {
-      "content": "addOnPageChangeListener(new com.bingo.spadedemo.spade.listener.ViewPagerPageChangeListener());"
+      "content": "addOnPageChangeListener(new com.bingo.spadedemo.spade.listener.ViewPagerPageChangeListener(this));"
     }
   }
 }
